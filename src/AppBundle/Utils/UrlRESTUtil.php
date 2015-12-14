@@ -23,12 +23,14 @@ class UrlRESTUtil{
         $repository = $this->em
             ->getRepository('AppBundle:Url');
         
-        // createQueryBuilder automatically selects FROM AppBundle:Product
+        // createQueryBuilder automatically selects FROM AppBundle:Url
         // and aliases it to "p"
         $query = $repository->createQueryBuilder('p')
             // ->where('p.price > :price')
             // ->setParameter('price', '19.99')
             ->orderBy('p.id', $sort)
+            ->setFirstResult( $offset )
+            ->setMaxResults( $limit )
             ->getQuery()
             ->useResultCache(true, 160);
         
