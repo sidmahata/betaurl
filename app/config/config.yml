@@ -70,12 +70,13 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
-        # entity_managers:
-        #     default:
-        #         metadata_cache_driver: opcache
-        #         result_cache_driver: opcache
-        #         query_cache_driver: opcache
-        #         connection: default
+        metadata_cache_driver:
+            type: memcached
+        result_cache_driver:
+            type: memcached
+        query_cache_driver:
+            type: memcached
+        connection: default
 
 # Swiftmailer Configuration
 swiftmailer:
