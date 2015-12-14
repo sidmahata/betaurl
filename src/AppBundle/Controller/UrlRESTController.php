@@ -13,7 +13,6 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcherInterface;
-use FOS\RestBundle\Util\Codes;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Faker;
@@ -110,7 +109,7 @@ class UrlRESTController extends FOSRestController
         if (! $form->isValid()){
             exit($form->getErrors());
         }
-        
+//        get form data
         $urldata = $form -> getData();
         
         // discarding the form values and inserting fake values in the database
