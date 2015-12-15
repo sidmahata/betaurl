@@ -16,6 +16,7 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Faker;
+use Hashids\Hashids;
 
 use AppBundle\Entity\Url;
 use AppBundle\Form\UrlType;
@@ -24,7 +25,7 @@ use AppBundle\Form\UrlType;
  * Url controller.
  * @RouteResource("Url")
  */
-class UrlRESTController extends FOSRestController
+class UrlRESTController extends Controller
 {
      /**
      * This method will return Url information by using the id.
@@ -49,8 +50,24 @@ class UrlRESTController extends FOSRestController
         $data = $this->get('app.UrlRESTUtil')->getUrlById($id);
         
         if(!$data){
-            // return array('error' => (Codes::HTTP_NOT_FOUND));
             throw $this->createNotFoundException('The product does not exist');
+        }
+        
+        return $data;
+    }
+    
+    /**
+     * 
+     * @View()
+     * 
+     */
+    public function getLongurlAction($shortcode)
+    {
+       // Using Utils Service app.UrlRESTUtil to get Url by shortcode
+        $data = $this->get('app.UrlRESTUtil')->getUrlByShortcode($shortcode);
+        
+        if(!$data){
+            throw $this->createNotFoundException('The Url does not exist');
         }
         
         return $data;
@@ -97,8 +114,6 @@ class UrlRESTController extends FOSRestController
      */
     public function postAction(Request $request)
     {
-        $faker = Faker\Factory::create();
-        
         $form = $this -> createForm(new UrlType(), new Url(), array(
             'method' => 'POST',
             'csrf_protection' => false,
@@ -110,17 +125,10 @@ class UrlRESTController extends FOSRestController
             exit($form->getErrors());
         }
 //        get form data
-        $urldata = $form -> getData();
+        $urlformdata = $form->getData();
         
-        // discarding the form values and inserting fake values in the database
-        $urldata->setLongurl($faker->url);
-        $urldata->setLongurlindex($faker->ean13);
+        $postdata = $this->get('app.UrlRESTUtil')->postUrlByLongurl($urlformdata);
         
-        $em = $this -> getDoctrine() -> getManager();
-        $em -> persist($urldata);
-        $em -> flush();
-        
-        
-        return $urldata;
+        return $postdata;
     }
 }
