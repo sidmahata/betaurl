@@ -3,6 +3,7 @@
 namespace AppBundle\Utils;
 
 use Hashids\Hashids;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UrlRESTUtil{
     
@@ -39,7 +40,16 @@ class UrlRESTUtil{
         $hashids = new Hashids("this is my salt", 8, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
         // $shortcode = $hashids->encode($result->getId());
         $id = $hashids->decode($shortcode);
+
+        if( empty($id) ){
+            throw new NotFoundHttpException("Shortcode does not exist");
+        }
+
         $result = $this->em->getRepository('AppBundle:Url')->find($id[0]);
+
+        if(!$result){
+            throw $this->createNotFoundException('The url does not exist');
+        }
         
         return $result->getLongurl();
         
