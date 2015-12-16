@@ -94,7 +94,7 @@ class Url
      * @param integer $longurlindex
      * @return Url
      */
-    public function setlongurlindex($longurlindex)
+    public function setLongurlindex($longurlindex)
     {
         $this->longurlindex = $longurlindex;
 
@@ -106,7 +106,7 @@ class Url
      *
      * @return integer 
      */
-    public function getlongurlindex()
+    public function getLongurlindex()
     {
         return $this->longurlindex;
     }

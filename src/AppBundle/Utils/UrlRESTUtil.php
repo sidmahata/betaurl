@@ -79,16 +79,40 @@ class UrlRESTUtil{
         return $result;
     }
     
-    public function postUrlByLongurl($urlformdata)
+    public function postUrlByLongurl($urlformdata1)
     {
         // converting the submitted longurl to unique BIGINT
-        $urlformdata->setLongurlindex(gmp_strval(gmp_init(substr(md5($urlformdata->getLongurl()), 0, 16), 16), 10));
-        
-        // $em = $this->em->getRepository('AppBundle:Url');
-        // $em->persist($urlformdata);
-        // $em->flush();
-        
-        return $urlformdata;
+        $longurlindex1 = gmp_strval(gmp_init(substr(md5($urlformdata1->getLongurl()), 0, 16), 16), 10);
+        //    //      setting longurlindex to converted longurl bigint
+        $urlformdata1->setLongurlindex($longurlindex1);
+
+//        check if this $longurlindex exixts in database
+        $repository = $this->em
+            ->getRepository('AppBundle:Url');
+        // createQueryBuilder automatically selects FROM AppBundle:Url
+        // and aliases it to "p"
+        $query = $repository->createQueryBuilder('p')
+            ->where('p.longurlindex = :longurlindex')
+            ->setParameter('longurlindex', $longurlindex1)
+            ->getQuery()
+            ->useQueryCache(true, 160)
+            ->useResultCache(true, 160);
+
+        $result = $query->getResult();
+
+//        if(!$result){
+////            throw new NotFoundHttpException("dosent exist, save it");
+//
+//    //        push urlformdata to database
+//             $em = $this->em;
+//             $em->persist($urlformdata1);
+//             $em->flush();
+//
+//            return $urlformdata1;
+//        }
+
+
+        return $urlformdata1;
     }
-    
+
 }
