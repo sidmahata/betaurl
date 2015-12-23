@@ -78,41 +78,48 @@ class UrlRESTUtil{
         
         return $result;
     }
+
+    public function get64BitHash($str)
+    {
+        return gmp_strval(gmp_init(substr(md5($str), 0, 16), 16), 10);
+    }
     
-    public function postUrlByLongurl($urlformdata1)
+    public function postUrlByLongurl($urlformdata)
     {
         // converting the submitted longurl to unique BIGINT
-        $longurlindex1 = gmp_strval(gmp_init(substr(md5($urlformdata1->getLongurl()), 0, 16), 16), 10);
+        $longurlindex = $this->get64BitHash($urlformdata);
         //    //      setting longurlindex to converted longurl bigint
-        $urlformdata1->setLongurlindex($longurlindex1);
+//        $urlformdata->setLongurlindex($longurlindex);
 
 //        check if this $longurlindex exixts in database
-        $repository = $this->em
-            ->getRepository('AppBundle:Url');
-        // createQueryBuilder automatically selects FROM AppBundle:Url
-        // and aliases it to "p"
-        $query = $repository->createQueryBuilder('p')
-            ->where('p.longurlindex = :longurlindex')
-            ->setParameter('longurlindex', $longurlindex1)
-            ->getQuery()
-            ->useQueryCache(true, 160)
-            ->useResultCache(true, 160);
-
-        $result = $query->getResult();
+//        $repository = $this->em
+//            ->getRepository('AppBundle:Url');
+//        // createQueryBuilder automatically selects FROM AppBundle:Url
+//        // and aliases it to "p"
+//        $query = $repository->createQueryBuilder('p')
+//            ->where('p.longurlindex = :longurlindex')
+//            ->setParameter('longurlindex', $longurlindex1)
+//            ->getQuery()
+//            ->useQueryCache(true, 160)
+//            ->useResultCache(true, 160);
+//
+//        $result = $query->getResult();
 
 //        if(!$result){
 ////            throw new NotFoundHttpException("dosent exist, save it");
 //
 //    //        push urlformdata to database
 //             $em = $this->em;
-//             $em->persist($urlformdata1);
+//             $em->persist($urlformdata);
 //             $em->flush();
 //
-//            return $urlformdata1;
+//            return $urlformdata;
 //        }
 
 
-        return $urlformdata1;
+        return intval("15151587357025235819");
     }
+
+
 
 }
