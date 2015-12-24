@@ -81,43 +81,48 @@ class UrlRESTUtil{
 
     public function get64BitHash($str)
     {
-        return gmp_strval(gmp_init(substr(md5($str), 0, 16), 16), 10);
+        return gmp_strval(gmp_init(substr(md5($str), 0, 14), 16), 10);
     }
     
     public function postUrlByLongurl($urlformdata)
     {
         // converting the submitted longurl to unique BIGINT
-        $longurlindex = $this->get64BitHash($urlformdata);
+        $longurlindex = $this->get64BitHash($urlformdata->getLongurl());
         //    //      setting longurlindex to converted longurl bigint
-//        $urlformdata->setLongurlindex($longurlindex);
+        $urlformdata->setLongurlindex($longurlindex);
 
 //        check if this $longurlindex exixts in database
-//        $repository = $this->em
-//            ->getRepository('AppBundle:Url');
-//        // createQueryBuilder automatically selects FROM AppBundle:Url
-//        // and aliases it to "p"
-//        $query = $repository->createQueryBuilder('p')
-//            ->where('p.longurlindex = :longurlindex')
-//            ->setParameter('longurlindex', $longurlindex1)
-//            ->getQuery()
-//            ->useQueryCache(true, 160)
-//            ->useResultCache(true, 160);
-//
-//        $result = $query->getResult();
+        $repository = $this->em
+            ->getRepository('AppBundle:Url');
+        // createQueryBuilder automatically selects FROM AppBundle:Url
+        // and aliases it to "p"
+        $query = $repository->createQueryBuilder('p')
+            ->where('p.longurlindex = :longurlindex')
+            ->setParameter('longurlindex', $longurlindex)
+            ->getQuery();
 
-//        if(!$result){
-////            throw new NotFoundHttpException("dosent exist, save it");
-//
-//    //        push urlformdata to database
-//             $em = $this->em;
-//             $em->persist($urlformdata);
-//             $em->flush();
-//
-//            return $urlformdata;
-//        }
+        $result = $query->getResult();
+
+        if(!$result){
+//            throw new NotFoundHttpException("dosent exist, save it");
+
+    //        push urlformdata to database
+             $em = $this->em;
+             $em->persist($urlformdata);
+             $em->flush();
+
+            return $urlformdata;
+        }else{
+            // create hashids for shortcode using the url row id
+//            $hashids = new Hashids("this is my salt", 8, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
+//            $shortcode = $hashids->encode($result->getId());
+
+//            var_dump($result);
+            return $result;
+        }
 
 
-        return intval("15151587357025235819");
+//        return $urlformdata;
     }
 
 
