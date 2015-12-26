@@ -21,7 +21,8 @@
         "friendsofsymfony/rest-bundle": "^1.7",
         "jms/serializer-bundle": "^1.1",
         "nelmio/api-doc-bundle": "^2.11",
-        "hashids/hashids": "1.0.5"
+        "hashids/hashids": "1.0.5",
+        "friendsofsymfony/user-bundle": "~2.0@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

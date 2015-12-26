@@ -70,7 +70,7 @@ class UrlRESTUtil{
             ->orderBy('p.id', $sort)
             ->setFirstResult( $offset )
             ->setMaxResults( $limit )
-            ->getQuery()
+            ->getQuery();
             ->useQueryCache(true, 160)
             ->useResultCache(true, 160);
         

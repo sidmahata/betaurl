@@ -10,3 +10,6 @@ UrlREST:
     resource:   "@AppBundle/Controller/UrlRESTController.php"
     type:       rest
     prefix:     /api
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
