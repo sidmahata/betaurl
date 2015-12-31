@@ -117,9 +117,9 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: AppBundle\Entity\User
-    registration:
-        confirmation:
-            enabled: true
-            from_email:
-                address:        siddhartha.mahata@gmail.com
-                sender_name:    admin_sid
+#    registration:
+#        confirmation:
+#            enabled: true
+#            from_email:
+#                address:        siddhartha.mahata@gmail.com
+#                sender_name:    admin_sid

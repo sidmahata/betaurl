@@ -13,11 +13,12 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $phpinfo = phpinfo();
+//        $phpinfo = phpinfo();
+
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
-            'phpinfo' => $phpinfo,
+//            'phpinfo' => $phpinfo,
         ));
     }
 }
