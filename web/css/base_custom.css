@@ -1,3 +1,19 @@
+/*body*/
+body{font-size: 13px;}
+
+/*color*/
+.color-gray-lighter{color: #eeeeee}
+.color-gray-light{color: #777777}
+.color-gray{color: #555555}
+.color-gray-dark{color: #333333}
+.color-gray-darker{color: #222222}
+
+.color-gray-lighter-bg{background: #eeeeee}
+.color-gray-light-bg{background: #777777}
+.color-gray-bg{background: #555555}
+.color-gray-dark-bg{background: #333333}
+.color-gray-darker-bg{background: #222222}
+
 /*margin rules*/
 .m-b-0{margin-bottom: 0;}
 .m-b-5{margin-bottom: 5px;}
@@ -63,3 +79,9 @@
 .p-l-20{padding-left: 20px;}
 .p-l-25{padding-left: 25px;}
 .p-l-30{padding-left: 30px;}
+
+/*dropdown-menu*/
+.dropdown:hover>.dropdown-menu {display: block;}
+
+/*panel*/
+/*.panel-body{min-height: 50vh;}*/

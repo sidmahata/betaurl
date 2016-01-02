@@ -6,80 +6,105 @@
 
 {% block body %}
 
-        {#left sidebar#}
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
-                        <div class="row dashboard-left-sidebar">
-                            <div class="list-group">
-                                <a href="#" class="list-group-item active text-center">
-                                    <h2 class="site-logo m-t-0 m-b-0">
-                                        <i class="fa fa-forumbee"></i>&nbsp;<strong>BRAND</strong>
-                                    </h2>
-                                </a>
-                                <a href="#" class="list-group-item text-center">
-                                    <span class="lead"><i class="fa fa-user"></i> {{ app.user.username }}</span>
-                                    <br>
-                                    <small>Last login: {{ app.user.lastLogin|date('Y-m-d H:i:s') }}</small>
-                                </a>
-                                <a href="#" class="list-group-item">Dapibus ac facilisis in
-                                </a>
-                                <a href="#" class="list-group-item">Morbi leo risus
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-8 col-sm-9 col-md-9 col-lg-10">
-                        {#dashboard navbar#}
-                        <div class="row">
-                            <nav class="navbar navbar-inverse">
-                                <div class="container-fluid">
-                                    <div class="navbar-header">
-                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                            <span class="sr-only">Toggle navigation</span>
-                                            <span class="icon-bar"></span>
-                                            <span class="icon-bar"></span>
-                                            <span class="icon-bar"></span>
-                                        </button>
-                                        <a class="navbar-brand visible-xs" href="{{ url('homepage') }}"><i class="fa fa-forumbee"></i></a>
-                                    </div>
-                        
-                                    <div class="row">
-                                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                            <ul class="nav navbar-nav">
-                                                <li><a href="{{ url('dashboard') }}"><i class="fa fa-refresh"></i> Dashboard</a></li>
-                                            </ul>
-                                            <ul class="nav navbar-nav navbar-right">
-                                                <li class="dropdown">
-                                                    <a href="{{ url('fos_user_profile_show') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user fa-lg"></i> {{ app.user.username }} <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu" role="menu">
-                                                        <li><a href="{{ url('fos_user_profile_show') }}">Profile</a></li>
-                                                        <li><a href="{{ url('fos_user_change_password') }}">Change Password</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="{{ url('fos_user_security_logout') }}">Logout</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </nav>
-                        </div>
-                        {#/dashboard navbar#}
-                        
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Panel primary</h3>
-                            </div>
-                            <div class="panel-body">
-        
-        
-                            </div>
-                        </div>
+    <div ng-app="shorturlApp">
+        <div class="container-fluid">
+            <div class="row">
 
+                {#/left-sidebar#}
+                <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
+                    <div class="row dashboard-left-sidebar">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item active text-center">
+                                <h2 class="site-logo m-t-0 m-b-0">
+                                    <i class="fa fa-forumbee"></i>&nbsp;<strong>BRAND</strong>
+                                </h2>
+                            </a>
+                            <a href="#" class="list-group-item text-center">
+                                <span class="lead"><i class="fa fa-user"></i> {{ app.user.username }}</span>
+                                <br>
+                                <small>Last login: {{ app.user.lastLogin|date('Y-m-d H:i:s') }}</small>
+                            </a>
+                            <a ui-sref="home.shorten" class="list-group-item">Shorten</a>
+                            <a href="#" class="list-group-item">Morbi leo risus
+                            </a>
+                        </div>
                     </div>
                 </div>
+                {#/left-sidebar#}
+
+                {#dashboard-right-sidebar#}
+                <div class="col-xs-8 col-sm-9 col-md-9 col-lg-10">
+                    {#dashboard navbar#}
+                    <div class="row">
+                        <nav class="navbar navbar-inverse m-b-15">
+                            <div class="container-fluid">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                    <a class="navbar-brand visible-xs" href="{{ url('homepage') }}"><i class="fa fa-forumbee"></i></a>
+                                </div>
+
+                                <div class="row">
+                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="{{ url('dashboard') }}"><i class="fa fa-refresh"></i> Dashboard</a></li>
+                                        </ul>
+                                        <ul class="nav navbar-nav navbar-right">
+                                            <li class="dropdown">
+                                                <a href="{{ url('fos_user_profile_show') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user fa-lg"></i> {{ app.user.username }} <span class="caret"></span></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="{{ url('fos_user_profile_show') }}">Profile</a></li>
+                                                    <li><a href="{{ url('fos_user_change_password') }}">Change Password</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="{{ url('fos_user_security_logout') }}">Logout</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    {#/dashboard navbar#}
+
+                    {#dashboard panel#}
+
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Panel primary</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div ui-view autoscroll="false"></div>
+                        </div>
+                    </div>
+                    {#/dashboard panel#}
+
+                    {#footer copyright#}
+                    <div>
+                        <p class="text-right color-gray">
+                            <small>Copyright &copy; Brand name | All Rights Reserved.</small>
+                        </p>
+                    </div>
+                    {#/footer copyright#}
+
+                </div>
+                {#/dashboard-right-sidebar#}
+
             </div>
-        {#/ sidebar#}
-        
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+    <script src="{{ asset('shorturlapp/app.js') }}"></script>
+    <script src="{{ asset('shorturlapp/homeController.js') }}"></script>
+    <script src="{{ asset('shorturlapp/shortenController.js') }}"></script>
 {% endblock %}
