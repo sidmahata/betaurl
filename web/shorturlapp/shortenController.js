@@ -13,20 +13,17 @@
             $scope.error = "Could not fetch data";
         };
 
-        $scope.shorten1 = function(){
-            $http.post("http://localhost/shin/web/app_dev.php/api/urls", $scope.urlentry)
-                .then(onUserLoadComplete, onError);
-        };
+        //$scope.shorten1 = function(){
+        //    $http.post("http://localhost/shin/web/app_dev.php/api/urls", $scope.urlentry)
+        //        .then(onUserLoadComplete, onError);
+        //};
 
         $scope.shorten = function(){
             $http.get("https://api.github.com/users/sidmahata")
                 .then(onUserLoadComplete, onError);
         };
 
-
-
-        $scope.message = "hello world , Shorten is working";
-        $scope.isAdvancedFormOpen = false;
+        $scope.message = "hello world , Shorten is working, but still";
 
     };
 
