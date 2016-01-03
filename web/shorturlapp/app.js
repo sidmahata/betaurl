@@ -4,6 +4,10 @@
         $interpolateProvider.startSymbol('[[').endSymbol(']]');
         });
 
+    function getRootUrl() {
+        return window.location.origin?window.location.origin+'/':window.location.protocol+'/'+window.location.host+'/';
+    }
+
     app.config(function($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.otherwise('/home');
@@ -13,7 +17,8 @@
             // HOME STATES AND NESTED VIEWS ========================================
             .state('home', {
                 url: '/home',
-                templateUrl: 'http://192.168.33.10/shorturlapp/home.html',
+                //templateUrl: 'http://192.168.33.10/shorturlapp/home.html',
+                templateUrl: getRootUrl().concat('shorturlapp/home.html'),
                 controller : 'homeController'
             })
             //.state('home.dashboard', {
@@ -23,7 +28,7 @@
             //})
             .state('home.shorten', {
                 url: '/shorten',
-                templateUrl: 'http://192.168.33.10/shorturlapp/shorten.html',
+                templateUrl: getRootUrl().concat('shorturlapp/shorten.html'),
                 controller : "shortenController"
             });
 
