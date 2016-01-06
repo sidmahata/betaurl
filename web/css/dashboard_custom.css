@@ -1,2 +1,9 @@
+/*navbar*/
+.navbar{border-radius: 0;}
+/*/navbar*/
+
+/*dashboard-left-sidebar*/
 .dashboard-left-sidebar{height: 100vh; background: #F5F5F5;}
 .dashboard-left-sidebar .site-logo{font-size: 21px;}
+.dashboard-left-sidebar .navbar{margin-bottom: 0;}
+/*/dashboard-left-sidebar*/

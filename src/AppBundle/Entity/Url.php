@@ -21,6 +21,13 @@ class Url
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="userid", type="integer")
+     */
+    private $userid;
 
     /**
      * @var string
@@ -63,6 +70,29 @@ class Url
     public function getId()
     {
         return $this->id;
+    }
+    
+    /**
+     * Set userid
+     *
+     * @param integer $userid
+     * @return Url
+     */
+    public function setUserid($userid)
+    {
+        $this->userid = $userid;
+
+        return $this;
+    }
+
+    /**
+     * Get userid
+     *
+     * @return integer 
+     */
+    public function getUserid()
+    {
+        return $this->userid;
     }
 
     /**

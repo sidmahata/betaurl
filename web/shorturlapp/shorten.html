@@ -66,6 +66,40 @@
 <!--<p ng-show="error">[[error]]</p>-->
 <!--<p ng-show="shorturl.login">[[shorturl.login]]</p>-->
 
-<p>[[shorturl.login]]</p>
-<p>[[shorturl.id]]</p>
-<p ng-show="error">[[error]]</p>
+<form style="text-align: center;" ng-submit="shorten()">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Paste Link here..." ng-model="urlentry.longurl">
+        <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit">Shorten!</button>
+        </span>
+    </div>
+</form>
+
+<hr>
+
+<div class="well" ng-show="shorturl">
+    <div ng-hide="shorturl.longurlindex">
+        <div ng-repeat="x in shorturl">
+            <div class="row">
+                <div class="col-xs-8">
+                    <p class="lead"><span class="text-info">[[x.id]].</span> [[x.longurlindex]]</p>
+                    <p><small>[[x.longurl]]</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div ng-show="shorturl.longurlindex">
+        <div class="row">
+            <div class="col-xs-8">
+                <p class="lead"><span class="text-info">[[shorturl.id]].</span> [[shorturl.longurlindex]]</p>
+                <p><small>[[shorturl.longurl]]</small></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-danger" role="alert" ng-show="error">
+    <p>[[error.message]]</p>
+</div>
+

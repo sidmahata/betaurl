@@ -88,7 +88,7 @@ class UrlRESTUtil{
     {
         // converting the submitted longurl to unique BIGINT
         $longurlindex = $this->get64BitHash($urlformdata->getLongurl());
-        //    //      setting longurlindex to converted longurl bigint
+        //      setting longurlindex to converted longurl bigint
         $urlformdata->setLongurlindex($longurlindex);
 
 //        check if this $longurlindex exixts in database
@@ -104,7 +104,6 @@ class UrlRESTUtil{
         $result = $query->getResult();
 
         if(!$result){
-//            throw new NotFoundHttpException("dosent exist, save it");
 
     //        push urlformdata to database
              $em = $this->em;
@@ -113,11 +112,6 @@ class UrlRESTUtil{
 
             return $urlformdata;
         }else{
-            // create hashids for shortcode using the url row id
-//            $hashids = new Hashids("this is my salt", 8, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
-//            $shortcode = $hashids->encode($result->getId());
-
-//            var_dump($result);
             return $result;
         }
 

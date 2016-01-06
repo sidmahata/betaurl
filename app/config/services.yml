@@ -6,4 +6,4 @@ parameters:
 services:
     app.UrlRESTUtil:
         class: AppBundle\Utils\UrlRESTUtil
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@doctrine.orm.entity_manager, @security.context]

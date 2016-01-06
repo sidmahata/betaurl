@@ -13,13 +13,16 @@
                 {#/left-sidebar#}
                 <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
                     <div class="row dashboard-left-sidebar">
+                        <nav class="navbar navbar-default m-b-15">
+                            <div class="container-fluid">
+                                <div class="navbar-header">
+                                  <a class="navbar-brand" href="#"><i class="fa fa-forumbee"></i>&nbsp;<strong>BRAND</strong></a>
+                                </div>
+                            </div>
+                        </nav>
+                        
                         <div class="list-group">
-                            <a href="#" class="list-group-item active text-center">
-                                <h2 class="site-logo m-t-0 m-b-0">
-                                    <i class="fa fa-forumbee"></i>&nbsp;<strong>BRAND</strong>
-                                </h2>
-                            </a>
-                            <a href="#" class="list-group-item text-center">
+                            <a href="{{ url('fos_user_profile_show') }}" class="list-group-item text-center">
                                 <span class="lead"><i class="fa fa-user"></i> {{ app.user.username }}</span>
                                 <br>
                                 <small>Last login: {{ app.user.lastLogin|date('Y-m-d H:i:s') }}</small>
@@ -36,7 +39,7 @@
                 <div class="col-xs-8 col-sm-9 col-md-9 col-lg-10">
                     {#dashboard navbar#}
                     <div class="row">
-                        <nav class="navbar navbar-inverse m-b-15">
+                        <nav class="navbar navbar-default m-b-15">
                             <div class="container-fluid">
                                 <div class="navbar-header">
                                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -51,7 +54,7 @@
                                 <div class="row">
                                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                         <ul class="nav navbar-nav">
-                                            <li><a href="{{ url('dashboard') }}"><i class="fa fa-refresh"></i> Dashboard</a></li>
+                                            <li><a ui-sref="home">Dashboard</a></li>
                                         </ul>
                                         <ul class="nav navbar-nav navbar-right">
                                             <li class="dropdown">
@@ -59,9 +62,8 @@
                                                 <ul class="dropdown-menu" role="menu">
                                                     <li><a href="{{ url('fos_user_profile_show') }}">Profile</a></li>
                                                     <li><a href="{{ url('fos_user_change_password') }}">Change Password</a></li>
-                                                    <li class="divider"></li>
-                                                    <li><a href="{{ url('fos_user_security_logout') }}">Logout</a></li>
                                                 </ul>
+                                                <li><a href="{{ url('fos_user_security_logout') }}"><i class="fa fa-power-off fa-lg"></i> Logout</a></li>
                                             </li>
                                         </ul>
                                     </div>
@@ -72,8 +74,6 @@
                     {#/dashboard navbar#}
 
                     {#dashboard panel#}
-
-
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Panel primary</h3>
