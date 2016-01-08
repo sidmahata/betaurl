@@ -112,7 +112,7 @@ class UrlRESTController extends Controller
             'method' => 'POST',
             'csrf_protection' => false,
         ));
-
+        
         $form->submit($request->request->all());
 
         if (! $form->isValid()){
@@ -120,6 +120,13 @@ class UrlRESTController extends Controller
         }
 //        get form data
         $urlformdata = $form->getData();
+
+        // check if user is logged in - tehn set userid else userid is itself set to 0
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $urlformdata->setUserid($this->getUser()->getId());
+        }else{
+            $urlformdata->setUserid(0);
+        }
 
         $postdata = $this->get('app.UrlRESTUtil')->postUrlByLongurl($urlformdata);
 

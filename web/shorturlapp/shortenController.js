@@ -28,7 +28,7 @@
         // };
 
         $scope.message = "hello world , Shorten is working, but still";
-
+        $scope.rooturl = getRootUrl();
     };
 
     app.controller("shortenController", ["$scope", "$http", shortenController]);

@@ -1,5 +1,3 @@
-[[message]]
-
 
 <!--<div class="x_panel">-->
     <!--<div class="x_title">-->
@@ -66,38 +64,52 @@
 <!--<p ng-show="error">[[error]]</p>-->
 <!--<p ng-show="shorturl.login">[[shorturl.login]]</p>-->
 
-<form style="text-align: center;" ng-submit="shorten()">
-    <div class="input-group">
-        <input type="text" class="form-control" placeholder="Paste Link here..." ng-model="urlentry.longurl">
-        <span class="input-group-btn">
-            <button class="btn btn-primary" type="submit">Shorten!</button>
-        </span>
+<div class="row m-b-30">
+    <div class="col-sm-10 col-md-8 col-lg-6 center-block">
+        <form style="text-align: center;" ng-submit="shorten()">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Paste Link here..." ng-model="urlentry.longurl">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-compress fa-lg"></i></button>
+                </span>
+            </div>
+        </form>
     </div>
-</form>
-
-<hr>
-
-<div class="well" ng-show="shorturl">
-    <div ng-hide="shorturl.longurlindex">
-        <div ng-repeat="x in shorturl">
+</div>
+<div class="row">
+    <div class="col-sm-10 col-md-8 col-lg-6 center-block">
+        <div class="well" ng-show="shorturl">
             <div class="row">
-                <div class="col-xs-8">
-                    <p class="lead"><span class="text-info">[[x.id]].</span> [[x.longurlindex]]</p>
-                    <p><small>[[x.longurl]]</small></p>
+                <div class="col-sm-8">
+                    <div ng-hide="shorturl.longurlindex">
+                        <div ng-repeat="x in shorturl">
+                                    <p class="lead-plus0 m-b-5">
+                                        <a href="#">[[rooturl]][[x.shortcode]]</a>
+                                        <button class="btn btn-default btn-xs m-t-n5 m-l-5"><i class="fa fa-copy"></i> COPY</button>
+                                    </p>
+                                    <p><small>[[x.longurl]]</small></p>
+                        </div>
+                    </div>
+                    
+                    <div ng-show="shorturl.longurlindex">
+                                <p class="lead-plus0 m-b-5">
+                                    <a href="#">[[rooturl]][[shorturl.shortcode]]</a>
+                                    <button class="btn btn-default btn-xs m-t-n5 m-l-5"><i class="fa fa-copy"></i> COPY</button>
+                                </p>
+                                <p><small>[[shorturl.longurl]]</small></p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <a href="#" class="m-l-10 lead pull-right"><i class="fa fa-facebook-square"></i></a>
+                    <a href="#" class="m-l-10 lead pull-right"><i class="fa fa-twitter-square"></i></a>
+                    <a href="#" class="m-l-10 lead pull-right"><i class="fa fa-bar-chart"></i></a>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div ng-show="shorturl.longurlindex">
-        <div class="row">
-            <div class="col-xs-8">
-                <p class="lead"><span class="text-info">[[shorturl.id]].</span> [[shorturl.longurlindex]]</p>
-                <p><small>[[shorturl.longurl]]</small></p>
-            </div>
-        </div>
-    </div>
 </div>
+
+
 
 <div class="alert alert-danger" role="alert" ng-show="error">
     <p>[[error.message]]</p>

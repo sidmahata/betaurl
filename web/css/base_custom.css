@@ -1,7 +1,18 @@
 /*body*/
 body{font-size: 13px;}
 
-/*color*/
+/*grid*/
+.center-block{float: none;}
+
+/*font rules*/
+.lead-plus0{font-size: 15px;}
+.lead-plus1{font-size: 24px;}
+.lead-plus2{font-size: 30px;}
+
+/*buttons*/
+.btn-xs, .btn-group-xs > .btn{font-size: 11px; line-height: 1.0;}
+
+/*color #3391bd*/
 .color-gray-lighter{color: #eeeeee}
 .color-gray-light{color: #777777}
 .color-gray{color: #555555}
@@ -15,6 +26,7 @@ body{font-size: 13px;}
 .color-gray-darker-bg{background: #222222}
 
 /*margin rules*/
+.m-b-n5{margin-bottom: -5px;}
 .m-b-0{margin-bottom: 0;}
 .m-b-5{margin-bottom: 5px;}
 .m-b-10{margin-bottom: 10px;}
@@ -23,6 +35,7 @@ body{font-size: 13px;}
 .m-b-25{margin-bottom: 25px;}
 .m-b-30{margin-bottom: 30px;}
 
+.m-t-n5{margin-top: -5px;}
 .m-t-0{margin-top: 0;}
 .m-t-5{margin-top: 5px;}
 .m-t-10{margin-top: 10px;}
@@ -31,6 +44,7 @@ body{font-size: 13px;}
 .m-t-25{margin-top: 25px;}
 .m-t-30{margin-top: 30px;}
 
+.m-r-n5{margin-right: -5px;}
 .m-r-0{margin-right: 0;}
 .m-r-5{margin-right: 5px;}
 .m-r-10{margin-right: 10px;}
@@ -39,6 +53,7 @@ body{font-size: 13px;}
 .m-r-25{margin-right: 25px;}
 .m-r-30{margin-right: 30px;}
 
+.m-l-n5{margin-left: -5px;}
 .m-l-0{margin-left: 0;}
 .m-l-5{margin-left: 5px;}
 .m-l-10{margin-left: 10px;}
@@ -82,6 +97,3 @@ body{font-size: 13px;}
 
 /*dropdown-menu*/
 .dropdown:hover>.dropdown-menu {display: block;}
-
-/*panel*/
-/*.panel-body{min-height: 50vh;}*/

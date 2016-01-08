@@ -23,12 +23,19 @@ class Url
     private $id;
     
     /**
+     * @var string
+     *
+     * @ORM\Column(name="shortcode", type="string", length=16, nullable=true)
+     */
+    private $shortcode;
+    
+    /**
      * @var integer
      *
      * @ORM\Column(name="userid", type="integer")
      */
     private $userid;
-
+    
     /**
      * @var string
      *
@@ -93,6 +100,29 @@ class Url
     public function getUserid()
     {
         return $this->userid;
+    }
+    
+    /**
+     * Set shortcode
+     *
+     * @param string $shortcode
+     * @return Url
+     */
+    public function setShortcode($shortcode)
+    {
+        $this->shortcode = $shortcode;
+
+        return $this;
+    }
+
+    /**
+     * Get shortcode
+     *
+     * @return string 
+     */
+    public function getShortcode()
+    {
+        return $this->shortcode;
     }
 
     /**

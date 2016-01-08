@@ -22,14 +22,13 @@
                         </nav>
                         
                         <div class="list-group">
-                            <a href="{{ url('fos_user_profile_show') }}" class="list-group-item text-center">
+                            <a href="{{ url('fos_user_profile_show') }}" class="list-group-item list-group-profile text-center">
                                 <span class="lead"><i class="fa fa-user"></i> {{ app.user.username }}</span>
                                 <br>
                                 <small>Last login: {{ app.user.lastLogin|date('Y-m-d H:i:s') }}</small>
                             </a>
-                            <a ui-sref="home.shorten" class="list-group-item">Shorten</a>
-                            <a href="#" class="list-group-item">Morbi leo risus
-                            </a>
+                            <a ui-sref="shorten" class="list-group-item">Shorten</a>
+                            <a ui-sref="list" class="list-group-item">List</a>
                         </div>
                     </div>
                 </div>
@@ -73,17 +72,12 @@
                     </div>
                     {#/dashboard navbar#}
 
-                    {#dashboard panel#}
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Panel primary</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div ui-view autoscroll="false"></div>
-                        </div>
-                    </div>
-                    {#/dashboard panel#}
-
+                    {#dashboard bodyl#}
+                    <div ui-view autoscroll="false"></div>
+                    {#/dashboard body#}
+                    
+                    <hr>
+                    
                     {#footer copyright#}
                     <div>
                         <p class="text-right color-gray">
@@ -107,4 +101,5 @@
     <script src="{{ asset('shorturlapp/app.js') }}"></script>
     <script src="{{ asset('shorturlapp/homeController.js') }}"></script>
     <script src="{{ asset('shorturlapp/shortenController.js') }}"></script>
+    <script src="{{ asset('shorturlapp/listController.js') }}"></script>
 {% endblock %}

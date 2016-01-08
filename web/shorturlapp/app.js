@@ -10,23 +10,22 @@
 
     app.config(function($stateProvider, $urlRouterProvider) {
 
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/shorten');
 
         $stateProvider
 
             // HOME STATES AND NESTED VIEWS ========================================
             .state('home', {
                 url: '/home',
-                //templateUrl: 'http://192.168.33.10/shorturlapp/home.html',
                 templateUrl: getRootUrl().concat('shorturlapp/home.html'),
-                controller : 'homeController'
+                controller : "homeController"
             })
-            //.state('home.dashboard', {
-            //    url: '/dashboard',
-            //    templateUrl: 'http://localhost/ngshin/web/shorturlapp/dashboard.html',
-            //    controller : 'dashboardController'
-            //})
-            .state('home.shorten', {
+            .state('list', {
+                url: '/list',
+                templateUrl: getRootUrl().concat('shorturlapp/list.html'),
+                controller : "listController"
+            })
+            .state('shorten', {
                 url: '/shorten',
                 templateUrl: getRootUrl().concat('shorturlapp/shorten.html'),
                 controller : "shortenController"

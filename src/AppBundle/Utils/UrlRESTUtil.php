@@ -14,6 +14,15 @@ class UrlRESTUtil{
         $this->em = $em;
     }
     
+    public function getHashidsShortcode($id)
+    {
+        // create hashids for shortcode using the url row id
+        $hashids = new Hashids("this is my salt", 5, "bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ1234567890");
+        $shortcode = $hashids->encode($id);
+        // $numbers = $hashids->decode($id);
+        return $shortcode;
+    }
+    
     public function getUrlById($id)
     {
         $result = $this->em->getRepository('AppBundle:Url')->find($id);
@@ -104,11 +113,18 @@ class UrlRESTUtil{
         $result = $query->getResult();
 
         if(!$result){
-
     //        push urlformdata to database
              $em = $this->em;
              $em->persist($urlformdata);
              $em->flush();
+             
+//          generate shortcode from id of url row generated (using getHashidsShortcode)
+            $shortcode = $this->getHashidsShortcode($urlformdata->getId());
+
+//          update the shortcode generated in the database
+            $urlformdata->setShortcode($shortcode);
+            $em->persist($urlformdata);
+            $em->flush();
 
             return $urlformdata;
         }else{
