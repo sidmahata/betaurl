@@ -21,4 +21,21 @@ class DefaultController extends Controller
 //            'phpinfo' => $phpinfo,
         ));
     }
+    
+    /**
+     * @Route("/{shortcode}", name="shortcode_redirect")
+     */
+    public function redirectAction(Request $request, $shortcode)
+    {
+        
+        // Using Utils Service app.UrlRESTUtil to get Url by shortcode
+        $data = $this->get('app.UrlRESTUtil')->getUrlByShortcode($shortcode);
+
+        if(!$data){
+            throw $this->createNotFoundException('The Url does not exist');
+        }
+
+        return $this->redirect($data);
+        
+    }
 }

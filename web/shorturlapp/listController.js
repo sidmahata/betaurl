@@ -8,19 +8,17 @@
 
     var listController = function($scope, $http){
 
-        // var onUserLoadComplete = function(response){
-        //     $scope.shorturl = response.data;
-        //     $scope.error = null;
-        // };
+        var onUserLoadComplete = function(response){
+            $scope.shorturlList = response.data;
+            $scope.error = null;
+        };
 
-        // var onError = function(response){
-        //     $scope.error = "Could not fetch data";
-        // };
+        var onError = function(response){
+            $scope.error = "Could not fetch data";
+        };
 
-        // $scope.shorten = function(){
-        //     $http.post(getRootUrl().concat('app_dev.php/api/urls'), $scope.urlentry)
-        //         .then(onUserLoadComplete, onError);
-        // };
+        $http.get(getRootUrl().concat('app_dev.php/api/urls'))
+                .then(onUserLoadComplete, onError);
         
         $scope.message1 = "hello world , List is working";
         $scope.rooturl = getRootUrl();

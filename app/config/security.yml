@@ -16,15 +16,18 @@ security:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
+                login_path: fos_user_security_login 
+                check_path: fos_user_security_check
                 csrf_provider: form.csrf_provider
-
-            logout:       true
+            logout:
+                path: /user/logout
+                target: homepage
             anonymous:    true
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/dashboard, role: ROLE_USER }
+        - { path: ^/user/dashboard, role: ROLE_USER }
         # - { path: ^/api/, role: ROLE_USER }

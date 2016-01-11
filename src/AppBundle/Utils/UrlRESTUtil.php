@@ -23,6 +23,15 @@ class UrlRESTUtil{
         return $shortcode;
     }
     
+    public function getHashidsShortcodeId($shortcode)
+    {
+        // create hashids for shortcode using the url row id
+        $hashids = new Hashids("this is my salt", 5, "bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ1234567890");
+        // $shortcode = $hashids->encode($id);
+        $numberId = $hashids->decode($shortcode);
+        return $numberId;
+    }
+    
     public function getUrlById($id)
     {
         $result = $this->em->getRepository('AppBundle:Url')->find($id);
@@ -45,10 +54,8 @@ class UrlRESTUtil{
     
     public function getUrlByShortcode($shortcode)
     {
-        // create hashids for shortcode using the url row id
-        $hashids = new Hashids("this is my salt", 8, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
-        // $shortcode = $hashids->encode($result->getId());
-        $id = $hashids->decode($shortcode);
+        // get id from hashids function decode from shortcode
+        $id = $this->getHashidsShortcodeId($shortcode);
 
         if( empty($id) ){
             throw new NotFoundHttpException("Shortcode does not exist");
@@ -64,7 +71,7 @@ class UrlRESTUtil{
         
     }
     
-    public function getUrlList($offset, $limit, $sort){
+    public function getUrlList($offset, $limit, $sort, $userid){
         
         // return $this->em->getRepository('AppBundle:Url')->findBy(array(), array('id' => $sort), $limit, $offset);
         
@@ -74,14 +81,14 @@ class UrlRESTUtil{
         // createQueryBuilder automatically selects FROM AppBundle:Url
         // and aliases it to "p"
         $query = $repository->createQueryBuilder('p')
-            // ->where('p.price > :price')
-            // ->setParameter('price', '19.99')
+            ->where('p.userid = :userid')
+            ->setParameter('userid', $userid)
             ->orderBy('p.id', $sort)
             ->setFirstResult( $offset )
             ->setMaxResults( $limit )
-            ->getQuery()
-            ->useQueryCache(true, 160)
-            ->useResultCache(true, 160);
+            ->getQuery();
+            // ->useQueryCache(true, 160)
+            // ->useResultCache(true, 160);
         
         $result = $query->getResult();
         
@@ -106,8 +113,8 @@ class UrlRESTUtil{
         // createQueryBuilder automatically selects FROM AppBundle:Url
         // and aliases it to "p"
         $query = $repository->createQueryBuilder('p')
-            ->where('p.longurlindex = :longurlindex')
-            ->setParameter('longurlindex', $longurlindex)
+            ->where('p.longurlindex = :longurlindex AND p.userid = :userid')
+            ->setParameters(array('longurlindex' => $longurlindex, 'userid' => $urlformdata->getUserid()) )
             ->getQuery();
 
         $result = $query->getResult();

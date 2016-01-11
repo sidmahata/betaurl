@@ -81,12 +81,19 @@ class UrlRESTController extends Controller
         $limit = $paramFetcher->get('limit');
         $offset = $paramFetcher->get('offset');
         $sort = $paramFetcher->get('sort');
+        
+        // check if user is logged in - tehn set userid else userid is itself set to 0
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $userid = $this->getUser()->getId();
+        }else{
+            $userid = 0;
+        }
 
         // Using Utils Service app.UrlRESTUtil to get all Url list
-        $data = $this->get('app.UrlRESTUtil')->getUrlList($offset, $limit, $sort);
+        $data = $this->get('app.UrlRESTUtil')->getUrlList($offset, $limit, $sort, $userid);
 
         if(!$data){
-            throw $this->createNotFoundException('The product does not exist');
+            throw $this->createNotFoundException('No url in list yet.');
         }
 
         return $data;

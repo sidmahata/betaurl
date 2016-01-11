@@ -1,3 +1,39 @@
-<p>hmmm</p>
-<br>
-<p>[[rooturl]]</p>
+
+<!--<div>-->
+<!--    [[message1]]-->
+<!--    <div ng-repeat="x in shorturlList">-->
+<!--        <p class="lead-plus0 m-b-5">-->
+<!--            <a href="[[rooturl]][[x.shortcode]]" target="_blank">[[rooturl]][[x.shortcode]]</a>-->
+<!--            <button class="btn btn-default btn-xs m-t-n5 m-l-5"><i class="fa fa-copy"></i> COPY</button>-->
+<!--        </p>-->
+<!--        <p><small>[[x.longurl]]</small></p>-->
+<!--    </div>-->
+<!--</div>-->
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>SHORT URLS</th>
+            <th class="text-center">CLICKS</th>
+            <th class="text-center">STATS</th>
+            <th class="text-center">SHARE</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="x in shorturlList">
+            <td>
+                <a href="[[rooturl]][[x.shortcode]]" target="_blank">[[rooturl]][[x.shortcode]]</a>
+                <button class="btn btn-warning btn-xs m-t-n5 m-l-5"><i class="fa fa-copy"></i> COPY</button>
+                <br>
+                <small>[[x.longurl]]</small>
+            </td>
+            <td class="text-center">NA</td>
+            <td class="text-center"><a href="#" class="m-l-10 lead"><i class="fa fa-bar-chart"></i></a></td>
+            <td class="text-center">
+                <a href="#" class="m-l-10 lead"><i class="fa fa-facebook-square"></i></a>
+                <a href="#" class="m-l-10 lead"><i class="fa fa-twitter-square"></i></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+                    
