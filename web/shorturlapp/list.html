@@ -23,15 +23,15 @@
         <tr ng-repeat="x in shorturlList">
             <td>
                 <a href="[[rooturl]][[x.shortcode]]" target="_blank">[[rooturl]][[x.shortcode]]</a>
-                <button class="btn btn-warning btn-xs m-t-n5 m-l-5"><i class="fa fa-copy"></i> COPY</button>
+                <button class="btn btn-warning btn-xs m-t-n5 m-l-5" ng-click="copyToClipboard(x.shortcode)"><i class="fa fa-copy"></i> COPY</button>
                 <br>
                 <small>[[x.longurl]]</small>
             </td>
             <td class="text-center">NA</td>
-            <td class="text-center"><a href="#" class="m-l-10 lead"><i class="fa fa-bar-chart"></i></a></td>
+            <td class="text-center"><a href="#" class="m-l-10 lead-plus0"><i class="fa fa-bar-chart"></i></a></td>
             <td class="text-center">
-                <a href="#" class="m-l-10 lead"><i class="fa fa-facebook-square"></i></a>
-                <a href="#" class="m-l-10 lead"><i class="fa fa-twitter-square"></i></a>
+                <a href="#" class="m-l-10 lead-plus0"><i class="fa fa-facebook-square"></i></a>
+                <a href="#" class="m-l-10 lead-plus0"><i class="fa fa-twitter-square"></i></a>
             </td>
         </tr>
     </tbody>

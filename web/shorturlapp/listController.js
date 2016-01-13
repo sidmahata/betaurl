@@ -22,6 +22,29 @@
         
         $scope.message1 = "hello world , List is working";
         $scope.rooturl = getRootUrl();
+        
+        $scope.copyToClipboard = function(text){
+            
+              // Create a "hidden" input
+              var aux = document.createElement("input");
+            
+              // Assign it the value of the specified element
+              aux.setAttribute("value", getRootUrl().concat(text));
+            
+              // Append it to the body
+              document.body.appendChild(aux);
+            
+              // Highlight its content
+              aux.select();
+            
+              // Copy the highlighted text
+              document.execCommand("copy");
+            
+              // Remove it from the body
+              document.body.removeChild(aux);
+              
+                
+            }
     };
 
     app.controller("listController", ["$scope", "$http", listController]);
