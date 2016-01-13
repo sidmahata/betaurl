@@ -6,8 +6,13 @@
 
     // get root url of website
     function getRootUrl() {
-        return window.location.origin?window.location.origin+'/':window.location.protocol+'/'+window.location.host+'/';
+        var rooturl =  window.location.origin?window.location.origin+'/':window.location.protocol+'/'+window.location.host+'/';
+        return rooturl.concat('betaurl/web/');
+        //var re = new RegExp(/^.*\//);
+        //return re.exec(window.location.href);
     }
+
+    //alert(getRootUrl());
 
     app.config(function($stateProvider, $urlRouterProvider) {
 
