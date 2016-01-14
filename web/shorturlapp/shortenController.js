@@ -3,10 +3,8 @@
     var app = angular.module("shorturlApp");
     
     function getRootUrl() {
-        var rooturl =  window.location.origin?window.location.origin+'/':window.location.protocol+'/'+window.location.host+'/';
-        return rooturl.concat('betaurl/web/');
-        //var re = new RegExp(/^.*\//);
-        //return re.exec(window.location.href);
+        return window.location.origin?window.location.origin+'/':window.location.protocol+'/'+window.location.host+'/';
+        
     }
 
     var shortenController = function($scope, $http){
