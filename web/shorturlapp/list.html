@@ -10,7 +10,8 @@
 <!--    </div>-->
 <!--</div>-->
 
-<table class="table table-striped table-hover">
+<div class="table-responsive">
+    <table class="table table-striped">
     <thead>
         <tr>
             <th>SHORT URLS</th>
@@ -20,7 +21,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="x in shorturlList">
+        <tr ng-repeat="x in shorturlList" class="lead-plus0">
             <td>
                 <a href="[[rooturl]][[x.shortcode]]" target="_blank">[[rooturl]][[x.shortcode]]</a>
                 <button class="btn btn-warning btn-xs m-t-n5 m-l-5" ng-click="copyToClipboard(x.shortcode)"><i class="fa fa-copy"></i> COPY</button>
@@ -36,4 +37,5 @@
         </tr>
     </tbody>
 </table>
+</div>
                     

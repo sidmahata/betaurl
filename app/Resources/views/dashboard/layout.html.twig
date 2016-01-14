@@ -2,94 +2,140 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/dashboard_custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/gn_menu.css') }}">
 {% endblock %}
 
 {% block body %}
 
     <div ng-app="shorturlApp">
-        <div class="container-fluid">
-            <div class="row">
+        
+        <ul id="gn-menu" class="gn-menu-main">
+				<li class="gn-trigger">
+					<a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+					<nav class="gn-menu-wrapper">
+						<div class="gn-scroller">
+							<ul class="gn-menu">
+							    <li class="gn-search-item">
+									<a ui-sref="home"><i class="fa fa-dashboard fa-lg m-l-20 m-r-20"></i> Dashboard</a>
+								</li>
+								<li class="gn-search-item">
+									<a ui-sref="shorten"><i class="fa fa-compress fa-lg m-l-20 m-r-20"></i> Shorten</a>
+								</li>
+								<li class="gn-search-item">
+									<a ui-sref="mass-shrinker"><i class="fa fa-sort-amount-desc fa-lg m-l-20 m-r-20"></i> Mass Shrinker</a>
+								</li>
+								<li>
+									<a ui-sref="list"><i class="fa fa-list fa-lg m-l-20 m-r-20"></i> List</a>
+								</li>
+								<li>
+									<a ui-sref="list"><i class="fa fa-question-circle fa-lg m-l-20 m-r-20"></i> Help</a>
+								</li>
+							</ul>
+						</div><!-- /gn-scroller -->
+					</nav>
+				</li>
+				<li class="pull-left"><a href="#">BRAND</a></li>
+				<li class="pull-right"><a href="{{ url('fos_user_security_logout') }}"><i class="fa fa-power-off fa-lg"></i></a></li>
+                <li class="dropdown pull-right">
+                    <a href="{{ url('fos_user_profile_show') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-gears fa-lg"></i> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ url('fos_user_profile_show') }}"><i class="fa fa-user"></i> View Profile</a></li>
+                        <li><a href="{{ url('fos_user_change_password') }}"><i class="fa fa-key"></i> Change Password</a></li>
+                    </ul>
+                </li>
+                
+                
+				{#<li><a class="codrops-icon codrops-icon-prev" href="http://tympanus.net/Development/HeaderEffects/"><span>Previous Demo</span></a></li>#}
+				{#<li><a class="codrops-icon codrops-icon-drop" href="http://tympanus.net/codrops/?p=16030"><span>Back to the Codrops Article</span></a></li>#}
+			</ul>
+			
+			<script>
+                new gnMenu( document.getElementById( 'gn-menu' ) );
+            </script>
+        
+        <div class="container" style="padding-top:100px;">
+                
+                <div ui-view autoscroll="false"></div>
 
                 {#/left-sidebar#}
-                <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
-                    <div class="row dashboard-left-sidebar">
-                        <nav class="navbar navbar-default m-b-15">
-                            <div class="container-fluid">
-                                <div class="navbar-header">
-                                  <a class="navbar-brand" href="#"><i class="fa fa-forumbee"></i>&nbsp;<strong>BRAND</strong></a>
-                                </div>
-                            </div>
-                        </nav>
+                {#<div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">#}
+                {#    <div class="row dashboard-left-sidebar">#}
+                {#        <nav class="navbar navbar-default m-b-15">#}
+                {#            <div class="container-fluid">#}
+                {#                <div class="navbar-header">#}
+                {#                  <a class="navbar-brand" href="#"><i class="fa fa-forumbee"></i>&nbsp;<strong>BRAND</strong></a>#}
+                {#                </div>#}
+                {#            </div>#}
+                {#        </nav>#}
                         
-                        <div class="list-group">
-                            <a href="{{ url('fos_user_profile_show') }}" class="list-group-item list-group-profile text-center">
-                                <span class="lead"><i class="fa fa-user"></i> {{ app.user.username }}</span>
-                                <br>
-                                <small>Last login: {{ app.user.lastLogin|date('Y-m-d H:i:s') }}</small>
-                            </a>
-                            <a ui-sref="shorten" class="list-group-item">Shorten <i class="fa fa-compress fa-lg pull-right"></i></a>
-                            <a ui-sref="list" class="list-group-item">List <i class="fa fa-list fa-lg pull-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+                {#        <div class="list-group">#}
+                {#            <a href="{{ url('fos_user_profile_show') }}" class="list-group-item list-group-profile text-center">#}
+                {#                <span class="lead"><i class="fa fa-user"></i> {{ app.user.username }}</span>#}
+                {#                <br>#}
+                {#                <small>Last login: {{ app.user.lastLogin|date('Y-m-d H:i:s') }}</small>#}
+                {#            </a>#}
+                {#            <a ui-sref="shorten" class="list-group-item">Shorten <i class="fa fa-compress fa-lg pull-right"></i></a>#}
+                {#            <a ui-sref="list" class="list-group-item">List <i class="fa fa-list fa-lg pull-right"></i></a>#}
+                {#        </div>#}
+                {#    </div>#}
+                {#</div>#}
                 {#/left-sidebar#}
 
                 {#dashboard-right-sidebar#}
-                <div class="col-xs-8 col-sm-9 col-md-9 col-lg-10">
+                {#<div class="col-xs-8 col-sm-9 col-md-9 col-lg-10">#}
                     {#dashboard navbar#}
-                    <div class="row">
-                        <nav class="navbar navbar-default m-b-15">
-                            <div class="container-fluid">
-                                <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                        <span class="sr-only">Toggle navigation</span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                    </button>
-                                    <a class="navbar-brand visible-xs" href="{{ url('homepage') }}"><i class="fa fa-forumbee"></i></a>
-                                </div>
+                {#    <div class="row">#}
+                {#        <nav class="navbar navbar-default m-b-15">#}
+                {#            <div class="container-fluid">#}
+                {#                <div class="navbar-header">#}
+                {#                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">#}
+                {#                        <span class="sr-only">Toggle navigation</span>#}
+                {#                        <span class="icon-bar"></span>#}
+                {#                        <span class="icon-bar"></span>#}
+                {#                        <span class="icon-bar"></span>#}
+                {#                    </button>#}
+                {#                    <a class="navbar-brand visible-xs" href="{{ url('homepage') }}"><i class="fa fa-forumbee"></i></a>#}
+                {#                </div>#}
 
-                                <div class="row">
-                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                        <ul class="nav navbar-nav">
-                                            <li><a ui-sref="home">Dashboard</a></li>
-                                        </ul>
-                                        <ul class="nav navbar-nav navbar-right">
-                                            <li class="dropdown">
-                                                <a href="{{ url('fos_user_profile_show') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-gears fa-lg"></i> <span class="caret"></span></a>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="{{ url('fos_user_profile_show') }}"><i class="fa fa-user"></i> View Profile</a></li>
-                                                    <li><a href="{{ url('fos_user_change_password') }}"><i class="fa fa-key"></i> Change Password</a></li>
-                                                </ul>
-                                                <li><a href="{{ url('fos_user_security_logout') }}"><i class="fa fa-power-off fa-lg"></i> Logout</a></li>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
+                {#                <div class="row">#}
+                {#                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">#}
+                {#                        <ul class="nav navbar-nav">#}
+                {#                            <li><a ui-sref="home">Dashboard</a></li>#}
+                {#                        </ul>#}
+                {#                        <ul class="nav navbar-nav navbar-right">#}
+                {#                            <li class="dropdown">#}
+                {#                                <a href="{{ url('fos_user_profile_show') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-gears fa-lg"></i> <span class="caret"></span></a>#}
+                {#                                <ul class="dropdown-menu" role="menu">#}
+                {#                                    <li><a href="{{ url('fos_user_profile_show') }}"><i class="fa fa-user"></i> View Profile</a></li>#}
+                {#                                    <li><a href="{{ url('fos_user_change_password') }}"><i class="fa fa-key"></i> Change Password</a></li>#}
+                {#                                </ul>#}
+                {#                                <li><a href="{{ url('fos_user_security_logout') }}"><i class="fa fa-power-off fa-lg"></i> Logout</a></li>#}
+                {#                            </li>#}
+                {#                        </ul>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#            </div>#}
+                {#        </nav>#}
+                {#    </div>#}
                     {#/dashboard navbar#}
 
                     {#dashboard bodyl#}
-                    <div ui-view autoscroll="false"></div>
+                {#    <div ui-view autoscroll="false"></div>#}
                     {#/dashboard body#}
                     
-                    <hr>
+                {#    <hr>#}
                     
                     {#footer copyright#}
-                    <div>
-                        <p class="text-right color-gray">
-                            <small>Copyright &copy; Brand name | All Rights Reserved.</small>
-                        </p>
-                    </div>
+                {#    <div>#}
+                {#        <p class="text-right color-gray">#}
+                {#            <small>Copyright &copy; Brand name | All Rights Reserved.</small>#}
+                {#        </p>#}
+                {#    </div>#}
                     {#/footer copyright#}
 
-                </div>
+                {#</div>#}
                 {#/dashboard-right-sidebar#}
 
-            </div>
         </div>
     </div>
 
@@ -98,8 +144,15 @@
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+    
+    <script src="{{ asset('js/modernizr.custom.js') }}"></script>
+    <script src="{{ asset('js/classie.js') }}"></script>
+    <script src="{{ asset('js/gnmenu.js') }}"></script>
+    
     <script src="{{ asset('shorturlapp/app.js') }}"></script>
     <script src="{{ asset('shorturlapp/homeController.js') }}"></script>
     <script src="{{ asset('shorturlapp/shortenController.js') }}"></script>
     <script src="{{ asset('shorturlapp/listController.js') }}"></script>
+    
+    
 {% endblock %}

@@ -1,5 +1,5 @@
 /*body*/
-body{font-size: 13px;}
+body{font-size: 13px; font-family: 'Ubuntu', sans-serif;}
 
 /*grid*/
 .center-block{float: none;}
@@ -97,3 +97,8 @@ body{font-size: 13px;}
 
 /*dropdown-menu*/
 .dropdown:hover>.dropdown-menu {display: block;}
+
+/*table*/
+table a:not(.btn), .table a:not(.btn){color: #DF691A; text-decoration: none;}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{padding: 15px 6px;}
+.table-striped > tbody > tr:nth-of-type(2n+1) {background-color: #334659;}
