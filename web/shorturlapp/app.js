@@ -11,6 +11,8 @@
     }
     
 
+    //alert(getRootUrl());
+
     app.config(function($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.otherwise('/shorten');
