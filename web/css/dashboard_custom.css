@@ -9,3 +9,14 @@
 .dashboard-left-sidebar .list-group-profile{background: #EAF5FF; border-radius: 0; border: none;}
 /*/dashboard-left-sidebar*/
 
+/*dashboard-eden*/
+#dashboard-eden{padding-top:100px;}
+/*/dashboard-eden*/
+
+@media screen and (min-width: 422px) { 
+
+/*dashboard-eden*/
+#dashboard-eden{padding-left:60px;}
+/*/dashboard-eden*/
+
+}

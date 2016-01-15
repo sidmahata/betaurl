@@ -117,9 +117,9 @@ class UrlRESTUtil{
             ->setParameters(array('longurlindex' => $longurlindex, 'userid' => $urlformdata->getUserid()) )
             ->getQuery();
 
-        $result = $query->getResult();
+        $result = $query->getOneOrNullResult();
 
-        if(!$result){
+        if( $result == null ){
     //        push urlformdata to database
              $em = $this->em;
              $em->persist($urlformdata);

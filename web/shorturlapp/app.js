@@ -1,6 +1,6 @@
 
 (function(){
-    var app = angular.module('shorturlApp', ['ui.router']).config(function($interpolateProvider){
+    var app = angular.module('shorturlApp', ['ui.router', 'ngSanitize']).config(function($interpolateProvider){
         $interpolateProvider.startSymbol('[[').endSymbol(']]');
         });
 
@@ -34,6 +34,11 @@
                 url: '/shorten',
                 templateUrl: getRootUrl().concat('shorturlapp/shorten.html'),
                 controller : "shortenController"
+            })
+            .state('mass-shorten', {
+                url: '/mass-shorten',
+                templateUrl: getRootUrl().concat('shorturlapp/mass-shorten.html'),
+                controller : "massShortenController"
             });
 
     });

@@ -22,7 +22,7 @@
 									<a ui-sref="shorten"><i class="fa fa-compress fa-lg m-l-20 m-r-20"></i> Shorten</a>
 								</li>
 								<li class="gn-search-item">
-									<a ui-sref="mass-shrinker"><i class="fa fa-sort-amount-desc fa-lg m-l-20 m-r-20"></i> Mass Shrinker</a>
+									<a ui-sref="mass-shorten"><i class="fa fa-sort-amount-desc fa-lg m-l-20 m-r-20"></i> Mass Shorten</a>
 								</li>
 								<li>
 									<a ui-sref="list"><i class="fa fa-list fa-lg m-l-20 m-r-20"></i> List</a>
@@ -53,7 +53,7 @@
                 new gnMenu( document.getElementById( 'gn-menu' ) );
             </script>
         
-        <div class="container" style="padding-top:100px;">
+        <div id="dashboard-eden" class="container">
                 
                 <div ui-view autoscroll="false"></div>
 
@@ -143,6 +143,7 @@
 
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-sanitize.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
     
     <script src="{{ asset('js/modernizr.custom.js') }}"></script>
@@ -153,6 +154,7 @@
     <script src="{{ asset('shorturlapp/homeController.js') }}"></script>
     <script src="{{ asset('shorturlapp/shortenController.js') }}"></script>
     <script src="{{ asset('shorturlapp/listController.js') }}"></script>
+    <script src="{{ asset('shorturlapp/massShortenController.js') }}"></script>
     
     
 {% endblock %}

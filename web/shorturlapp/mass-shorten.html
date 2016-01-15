@@ -1,0 +1,19 @@
+
+<div class="row m-b-30">
+    <div class="container">
+        <form ng-submit="massShorten()">
+            <div>
+                <textarea class="form-control m-b-10" rows="10" placeholder="Paste your Links here..." ng-model="massurlentry.longurl"></textarea>
+                <button class="btn btn-primary" type="submit"><i class="fa fa-compress fa-lg"></i> Mass Shorten</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="alert alert-danger" role="alert" ng-show="error">
+    <p>[[error]]</p>
+</div>
+
+<div ng-bind-html="divHtmlVar"></div>
+

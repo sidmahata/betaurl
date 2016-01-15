@@ -81,17 +81,17 @@
         <div class="well" ng-show="shorturl">
             <div class="row">
                 <div class="col-sm-8">
-                    <div ng-hide="shorturl.longurlindex">
-                        <div ng-repeat="x in shorturl">
-                            <p class="lead-plus0 m-b-5">
-                                <a href="[[rooturl]][[x.shortcode]]" target="_blank">[[rooturl]][[x.shortcode]]</a>
-                                <button class="btn btn-warning btn-xs m-t-n5 m-l-5" ng-click="copyToClipboard(x.shortcode)"><i class="fa fa-copy"></i> COPY</button>
-                            </p>
-                            <p><small>[[x.longurl]]</small></p>
-                        </div>
-                    </div>
+                    <!--<div ng-hide="shorturl.longurlindex">-->
+                    <!--    <div ng-repeat="x in shorturl">-->
+                    <!--        <p class="lead-plus0 m-b-5">-->
+                    <!--            <a href="[[rooturl]][[x.shortcode]]" target="_blank">[[rooturl]][[x.shortcode]]</a>-->
+                    <!--            <button class="btn btn-warning btn-xs m-t-n5 m-l-5" ng-click="copyToClipboard(x.shortcode)"><i class="fa fa-copy"></i> COPY</button>-->
+                    <!--        </p>-->
+                    <!--        <p><small>[[x.longurl]]</small></p>-->
+                    <!--    </div>-->
+                    <!--</div>-->
                     
-                    <div ng-show="shorturl.longurlindex">
+                    <div ng-show="shorturl.shortcode">
                         <p class="lead-plus0 m-b-5">
                             <a href="[[rooturl]][[shorturl.shortcode]]" target="_blank">[[rooturl]][[shorturl.shortcode]]</a>
                             <button class="btn btn-warning btn-xs m-t-n5 m-l-5" ng-click="copyToClipboard(shorturl.shortcode)"><i class="fa fa-copy"></i> COPY</button>

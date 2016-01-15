@@ -54,6 +54,13 @@
 		color: white;
 }
 
+.no-touch .gn-menu-main a:focus,
+.no-touch .gn-menu li.gn-search-item:focus,
+.no-touch .gn-menu li.gn-search-item:focus a {
+		background: #414E5D;
+		color: white;
+}
+
 .gn-menu-main > li {
 		display: block;
 		float: left;
