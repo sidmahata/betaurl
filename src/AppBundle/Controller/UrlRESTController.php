@@ -125,18 +125,28 @@ class UrlRESTController extends Controller
         if (! $form->isValid()){
             exit($form->getErrors());
         }
-//        get form data
+        // get form data
         $urlformdata = $form->getData();
-
-        // check if user is logged in - tehn set userid else userid is itself set to 0
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $urlformdata->setUserid($this->getUser()->getId());
+        
+        // check if longurl given is valid or not.
+        $checkUrl = $this->get('app.ValidUrlUtil')->checkValidUrl($urlformdata->getLongurl());
+        if($checkUrl == $urlformdata->getLongurl()){
+            // check if user is logged in - then set userid else userid is itself set to 0
+            if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+                
+                $urlformdata->setUserid($this->getUser()->getId());
+            }else{
+                $urlformdata->setUserid(0);
+            }
+    
+            $postdata = $this->get('app.UrlRESTUtil')->postUrlByLongurl($urlformdata);
+    
+            return $postdata;
+            
         }else{
-            $urlformdata->setUserid(0);
+            return array('checkurl'=>$checkUrl);
         }
 
-        $postdata = $this->get('app.UrlRESTUtil')->postUrlByLongurl($urlformdata);
-
-        return $postdata;
+        
     }
 }

@@ -4,7 +4,6 @@ namespace AppBundle\Utils;
 
 use Hashids\Hashids;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
 class UrlRESTUtil{
     
     protected $em;
@@ -81,6 +80,7 @@ class UrlRESTUtil{
         // createQueryBuilder automatically selects FROM AppBundle:Url
         // and aliases it to "p"
         $query = $repository->createQueryBuilder('p')
+            ->select(array('p.shortcode', 'p.longurl'))
             ->where('p.userid = :userid')
             ->setParameter('userid', $userid)
             ->orderBy('p.id', $sort)
@@ -102,12 +102,13 @@ class UrlRESTUtil{
     
     public function postUrlByLongurl($urlformdata)
     {
+        
         // converting the submitted longurl to unique BIGINT
         $longurlindex = $this->get64BitHash($urlformdata->getLongurl());
-        //      setting longurlindex to converted longurl bigint
+        // setting longurlindex to converted longurl bigint
         $urlformdata->setLongurlindex($longurlindex);
 
-//        check if this $longurlindex exixts in database
+        // check if this $longurlindex exixts in database
         $repository = $this->em
             ->getRepository('AppBundle:Url');
         // createQueryBuilder automatically selects FROM AppBundle:Url
@@ -120,26 +121,32 @@ class UrlRESTUtil{
         $result = $query->getOneOrNullResult();
 
         if( $result == null ){
-    //        push urlformdata to database
+            // push urlformdata to database
              $em = $this->em;
              $em->persist($urlformdata);
              $em->flush();
              
-//          generate shortcode from id of url row generated (using getHashidsShortcode)
+            // generate shortcode from id of url row generated (using getHashidsShortcode)
             $shortcode = $this->getHashidsShortcode($urlformdata->getId());
 
-//          update the shortcode generated in the database
+            // update the shortcode generated in the database
             $urlformdata->setShortcode($shortcode);
             $em->persist($urlformdata);
             $em->flush();
 
-            return $urlformdata;
+            // return $urlformdata;
+            return array(
+                'shortcode' => $urlformdata->getShortcode(),
+                'longurl' => $urlformdata->getLongurl(),
+                );
         }else{
-            return $result;
+            return array(
+                'shortcode' => $result->getShortcode(),
+                'longurl' => $result->getLongurl(),
+                );
         }
 
-
-//        return $urlformdata;
+        // return $urlformdata;
     }
 
 

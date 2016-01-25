@@ -7,3 +7,5 @@ services:
     app.UrlRESTUtil:
         class: AppBundle\Utils\UrlRESTUtil
         arguments: [@doctrine.orm.entity_manager, @security.context]
+    app.ValidUrlUtil:
+        class: AppBundle\Utils\ValidUrlUtil

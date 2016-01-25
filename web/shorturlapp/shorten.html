@@ -91,7 +91,7 @@
                     <!--    </div>-->
                     <!--</div>-->
                     
-                    <div ng-show="shorturl.shortcode">
+                    <div ng-show="shorturl.longurl">
                         <p class="lead-plus0 m-b-5">
                             <a href="[[rooturl]][[shorturl.shortcode]]" target="_blank">[[rooturl]][[shorturl.shortcode]]</a>
                             <button class="btn btn-warning btn-xs m-t-n5 m-l-5" ng-click="copyToClipboard(shorturl.shortcode)"><i class="fa fa-copy"></i> COPY</button>
@@ -104,6 +104,9 @@
                     <a href="#" class="m-l-10 lead-plus0 pull-right"><i class="fa fa-twitter-square"></i></a>
                     <a href="#" class="m-l-10 lead-plus0 pull-right"><i class="fa fa-bar-chart"></i></a>
                 </div>
+            </div>
+            <div ng-show="shorturl.checkurl">
+                [[shorturl.checkurl]]
             </div>
         </div>
     </div>
