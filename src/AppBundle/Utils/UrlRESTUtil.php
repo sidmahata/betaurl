@@ -114,8 +114,8 @@ class UrlRESTUtil{
         // createQueryBuilder automatically selects FROM AppBundle:Url
         // and aliases it to "p"
         $query = $repository->createQueryBuilder('p')
-            ->where('p.longurlindex = :longurlindex AND p.userid = :userid')
-            ->setParameters(array('longurlindex' => $longurlindex, 'userid' => $urlformdata->getUserid()) )
+            ->where('p.longurlindex = :longurlindex AND p.longurl = :longurl AND p.userid = :userid')
+            ->setParameters(array('longurlindex' => $longurlindex, 'longurl' => $urlformdata->getLongurl(), 'userid' => $urlformdata->getUserid()) )
             ->getQuery();
 
         $result = $query->getOneOrNullResult();

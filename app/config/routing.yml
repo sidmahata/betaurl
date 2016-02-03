@@ -1,6 +1,4 @@
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+
 
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
@@ -33,3 +31,7 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+    
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

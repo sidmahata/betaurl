@@ -20,7 +20,7 @@
 .gn-menu-main ul {
 		margin: 0;
 		padding: 0;
-		background: white;
+		background: #EFEFEF;
 		color: #5f6f81;
 		list-style: none;
 		text-transform: none;
@@ -123,6 +123,7 @@
 		overflow-y: scroll;
 		width: 270px;
 		height: 100%;
+		background: #EFEFEF;
 }
 
 .gn-menu {

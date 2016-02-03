@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Url
  *
- * @ORM\Table()
+ * @ORM\Table(indexes={@ORM\Index(name="index_userid", columns={"userid"}), @ORM\Index(name="index_longurlindex", columns={"longurlindex"})})
  * @ORM\Entity(repositoryClass="AppBundle\Entity\UrlRepository")
  * @ORM\HasLifecycleCallbacks()
  */

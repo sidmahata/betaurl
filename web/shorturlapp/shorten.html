@@ -68,7 +68,7 @@
     <div class="col-sm-10 col-md-8 col-lg-6 center-block">
         <form style="text-align: center;" ng-submit="shorten()">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Paste Link here..." ng-model="urlentry.longurl">
+                <input type="text" class="form-control" placeholder="Paste Link here..." ng-model="urlentry.longurl" required>
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="submit"><i class="fa fa-compress fa-lg"></i></button>
                 </span>
@@ -79,8 +79,9 @@
 <div class="row">
     <div class="col-sm-10 col-md-8 col-lg-6 center-block">
         <div class="well" ng-show="shorturl">
-            <div class="row">
-                <div class="col-sm-8">
+            <div  ng-show="shorturl.longurl">
+                <div class="row">
+                    <div class="col-sm-8">
                     <!--<div ng-hide="shorturl.longurlindex">-->
                     <!--    <div ng-repeat="x in shorturl">-->
                     <!--        <p class="lead-plus0 m-b-5">-->
@@ -91,19 +92,21 @@
                     <!--    </div>-->
                     <!--</div>-->
                     
-                    <div ng-show="shorturl.longurl">
-                        <p class="lead-plus0 m-b-5">
-                            <a href="[[rooturl]][[shorturl.shortcode]]" target="_blank">[[rooturl]][[shorturl.shortcode]]</a>
-                            <button class="btn btn-warning btn-xs m-t-n5 m-l-5" ng-click="copyToClipboard(shorturl.shortcode)"><i class="fa fa-copy"></i> COPY</button>
-                        </p>
-                        <p><small>[[shorturl.longurl]]</small></p>
+                        <div>
+                            <p class="lead-plus0 m-b-5">
+                                <a href="[[rooturl]][[shorturl.shortcode]]" target="_blank">[[rooturl]][[shorturl.shortcode]]</a>
+                                <button class="btn btn-warning btn-xs m-t-n5 m-l-5" ng-click="copyToClipboard(shorturl.shortcode)"><i class="fa fa-copy"></i> COPY</button>
+                            </p>
+                            <p><small>[[shorturl.longurl]]</small></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="#" class="m-l-10 lead-plus0 pull-right"><i class="fa fa-facebook-square"></i></a>
+                        <a href="#" class="m-l-10 lead-plus0 pull-right"><i class="fa fa-twitter-square"></i></a>
+                        <a href="#" class="m-l-10 lead-plus0 pull-right"><i class="fa fa-bar-chart"></i></a>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <a href="#" class="m-l-10 lead-plus0 pull-right"><i class="fa fa-facebook-square"></i></a>
-                    <a href="#" class="m-l-10 lead-plus0 pull-right"><i class="fa fa-twitter-square"></i></a>
-                    <a href="#" class="m-l-10 lead-plus0 pull-right"><i class="fa fa-bar-chart"></i></a>
-                </div>
+                
             </div>
             <div ng-show="shorturl.checkurl">
                 [[shorturl.checkurl]]
