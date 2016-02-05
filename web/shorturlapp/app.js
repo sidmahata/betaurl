@@ -1,6 +1,6 @@
 
 (function(){
-    var app = angular.module('shorturlApp', ['ui.router', 'ngSanitize']).config(function($interpolateProvider){
+    var app = angular.module('shorturlApp', ['ui.router', 'ngSanitize', 'ngAnimate', 'ui.bootstrap']).config(function($interpolateProvider){
         $interpolateProvider.startSymbol('[[').endSymbol(']]');
         });
 

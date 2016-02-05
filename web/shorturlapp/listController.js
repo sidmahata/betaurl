@@ -6,7 +6,7 @@
         return window.location.origin?window.location.origin+'/':window.location.protocol+'/'+window.location.host+'/';
         
     }
-
+    
     var listController = function($scope, $http){
 
         var onUserLoadComplete = function(response){

@@ -36,9 +36,9 @@ class ValidUrlUtil{
     protected function checkOwnUrl($url) {
 
         // Recognizes ftp://, ftps://, http:// and https:// in a case insensitive way and adds http:// if not present
-        // if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
-        //     $url = "http://" . $url;
-        // }
+        if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+            $url = "http://" . $url;
+        }
         
         $whitelist = array(
                 "http://".$_SERVER['SERVER_NAME']."/contact",

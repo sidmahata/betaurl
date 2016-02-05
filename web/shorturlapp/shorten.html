@@ -81,7 +81,7 @@
         <div class="well" ng-show="shorturl">
             <div  ng-show="shorturl.longurl">
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-9">
                     <!--<div ng-hide="shorturl.longurlindex">-->
                     <!--    <div ng-repeat="x in shorturl">-->
                     <!--        <p class="lead-plus0 m-b-5">-->
@@ -95,12 +95,12 @@
                         <div>
                             <p class="lead-plus0 m-b-5">
                                 <a href="[[rooturl]][[shorturl.shortcode]]" target="_blank">[[rooturl]][[shorturl.shortcode]]</a>
-                                <button class="btn btn-warning btn-xs m-t-n5 m-l-5" ng-click="copyToClipboard(shorturl.shortcode)"><i class="fa fa-copy"></i> COPY</button>
+                                <button class="btn btn-warning btn-sm m-t-n5 m-l-5" ng-click="copyToClipboard(shorturl.shortcode); tooltipIsOpen = !tooltipIsOpen" uib-tooltip="&#10003 Copied!" tooltip-is-open="tooltipIsOpen" tooltip-placement="right" tooltip-trigger="outsideClick"><i class="fa fa-copy"></i> COPY</button>
                             </p>
                             <p><small>[[shorturl.longurl]]</small></p>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <a href="#" class="m-l-10 lead-plus0 pull-right"><i class="fa fa-facebook-square"></i></a>
                         <a href="#" class="m-l-10 lead-plus0 pull-right"><i class="fa fa-twitter-square"></i></a>
                         <a href="#" class="m-l-10 lead-plus0 pull-right"><i class="fa fa-bar-chart"></i></a>

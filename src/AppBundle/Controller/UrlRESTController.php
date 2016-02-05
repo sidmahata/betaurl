@@ -128,6 +128,14 @@ class UrlRESTController extends Controller
         // get form data
         $urlformdata = $form->getData();
         
+        // check if longurl misses http:// and add it up.
+        $longurlcheck = $urlformdata->getLongurl();
+        // Recognizes ftp://, ftps://, http:// and https:// in a case insensitive way and adds http:// if not present
+        if (!preg_match("~^(?:f|ht)tps?://~i", $longurlcheck)) {
+            $longurlcheck = "http://" . $longurlcheck;
+        }
+        $urlformdata->setLongurl($longurlcheck);
+        
         // check if longurl given is valid or not.
         $checkUrl = $this->get('app.ValidUrlUtil')->checkValidUrl($urlformdata->getLongurl());
         if($checkUrl == $urlformdata->getLongurl()){

@@ -10,4 +10,9 @@ $(document).ready(function(){
     // });
     // // end of copy button text loader
     
+    // bootstrap popover init
+    $(function () {
+      $('[data-toggle="popover"]').popover()
+    })
+    // end of bootstrap popover init
 });

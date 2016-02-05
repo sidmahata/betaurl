@@ -24,7 +24,7 @@
         <tr ng-repeat="x in shorturlList" class="lead-plus0">
             <td>
                 <a href="[[rooturl]][[x.shortcode]]" target="_blank">[[rooturl]][[x.shortcode]]</a>
-                <button class="btn btn-warning btn-xs m-t-n5 m-l-5" ng-click="copyToClipboard(x.shortcode)"><i class="fa fa-copy"></i> COPY</button>
+                <button class="btn btn-warning btn-sm m-t-n5 m-l-5" ng-click="copyToClipboard(x.shortcode); tooltipIsOpen = !tooltipIsOpen" uib-tooltip="&#10003 Copied!" tooltip-is-open="tooltipIsOpen" tooltip-placement="right" tooltip-trigger="outsideClick"><i class="fa fa-copy"></i> COPY</button>
                 <br>
                 <small>[[x.longurl]]</small>
             </td>
