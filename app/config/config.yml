@@ -123,3 +123,7 @@ fos_user:
 #            from_email:
 #                address:        siddhartha.mahata@gmail.com
 #                sender_name:    admin_sid
+
+services:
+    fos_user.doctrine_registry:
+        alias: doctrine
