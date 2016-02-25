@@ -1,1 +1,85 @@
 <p>[[homemessage]]</p>
+
+
+<div  id="chartdiv" style="height: 400px;"></div>
+
+<script>
+             AmCharts.makeChart("chartdiv", {
+                type: "serial",
+                dataProvider: [
+				  {
+				    	"date": "2016-02-12",
+				      "label": "/QyJgZ",
+				      "nb_visits": 1,
+				      "nb_uniq_visitors": 1,
+				      "nb_hits": 1,
+				      "sum_time_spent": 94,
+				      "entry_nb_uniq_visitors": "1",
+				      "entry_nb_visits": "1",
+				      "entry_nb_actions": "5",
+				      "entry_sum_visit_length": "907",
+				      "entry_bounce_count": "0",
+				      "avg_time_on_page": 94,
+				      "bounce_rate": "0%",
+				      "exit_rate": "0%",
+				      "url": "http://feedbit.net/QyJgZ"
+				    },
+				  {
+				    	"date": "2016-02-15",
+				      "label": "/QyJgZ",
+				      "nb_visits": 3,
+				      "nb_uniq_visitors": 2,
+				      "nb_hits": 3,
+				      "sum_time_spent": 906,
+				      "entry_nb_uniq_visitors": "1",
+				      "entry_nb_visits": "1",
+				      "entry_nb_actions": "2",
+				      "entry_sum_visit_length": "907",
+				      "entry_bounce_count": "0",
+				      "exit_nb_uniq_visitors": "2",
+				      "exit_nb_visits": "2",
+				      "avg_time_on_page": 302,
+				      "bounce_rate": "0%",
+				      "exit_rate": "67%",
+				      "url": "http://feedbit.net/QyJgZ"
+				    },
+				    {
+				    	"date": "2016-02-16"
+				    }
+				],
+                categoryField: "date",
+                startDuration: 1,
+                // rotate: true,
+
+                categoryAxis: {
+                    gridPosition: "start"
+                },
+                valueAxes: [{
+                    position: "top",
+                    title: "Million USD",
+                    minorGridEnabled: true
+                }],
+                graphs: [{
+                    type: "column",
+                    title: "nb_visits",
+                    valueField: "nb_visits",
+                    fillAlphas:1,
+                    balloonText: "<span style='font-size:13px;'>[[title]] in [[category]]:<b>[[value]]</b></span>"
+                }, {
+                    type: "line",
+                    title: "nb_hits",
+                    valueField: "nb_hits",
+                    lineThickness: 2,
+                    bullet: "round",
+                    balloonText: "<span style='font-size:13px;'>[[title]] in [[category]]:<b>[[value]]</b></span>"
+                }],
+                legend: {
+                    useGraphSettings: true
+                },
+
+                creditsPosition:"top-right"
+
+            });
+
+
+        </script>

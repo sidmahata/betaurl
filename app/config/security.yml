@@ -30,4 +30,5 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/user/dashboard, role: ROLE_USER }
+        - { path: ^/analytics, role: ROLE_USER }
         # - { path: ^/api/, role: ROLE_USER }

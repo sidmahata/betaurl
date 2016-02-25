@@ -6,6 +6,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use FOS\RestBundle\Request\ParamFetcher;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Request\ParamFetcherInterface;
 
 class DefaultController extends Controller
 {
@@ -52,8 +56,67 @@ class DefaultController extends Controller
      */
     public function aboutusAction()
     {
-        return new Response("about-us");
+    	
+    	
+        return new JsonResponse('about us');
     }
+    
+    
+    /**
+     * @Route("/analytics", name="analytics")
+     *
+     * @QueryParam(name="shortcode", default="3r3gr", description="shortcode of which analytics is required")
+     * @QueryParam(name="period", default="month", description="period of analytics data required")
+     * @QueryParam(name="date", default="today", description="date from which analytics data required")
+     *
+     * @param ParamFetcher $paramFetcher
+     *
+     */
+     public function analyticsAction(ParamFetcher $paramFetcher)
+     {
+     	$shortcode = $paramFetcher->get('shortcode');
+     	$period = $paramFetcher->get('period');
+     	$date = $paramFetcher->get('date');
+     	$piwik_token_auth = $this->container->getParameter('piwik_token_auth');
+     	$piwik_domain = $this->container->getParameter('piwik_domain');
+     	
+     	// get session userid
+     	if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+                
+            $userid = $this->getUser()->getId();
+        }else{
+            $userid = 0;
+        }
+        
+        // get shortcode user id
+        $shortcodeUserid = $this->get('app.UrlRESTUtil')->getUseridByShortcode($shortcode);
+        
+        // check if session userid matches with shortcode user id, if matches show analytics data
+        if($userid == $shortcodeUserid){
+        	$url = $piwik_domain."/?module=API&method=Actions.getPageUrl&pageUrl=http://feedbit.net/".$shortcode."&period=".$period."&date=".$date."&idSite=1&token_auth=".$piwik_token_auth."&format=json";
+    	
+	    	//  Initiate curl
+			$ch = curl_init();
+			// Disable SSL verification
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			// Will return the response, if false it print the response
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			// Set the url
+			curl_setopt($ch, CURLOPT_URL,$url);
+			// Execute
+			$result=curl_exec($ch);
+			// Closing
+			curl_close($ch);
+			
+			// Will dump a beauty json :3
+			$data = json_decode($result, true);
+			
+	        return new JsonResponse( $data );
+        }else{
+        	return new JsonResponse('You are not authorized to view this data.');
+        }
+     	
+     }
     
     
     /**
@@ -69,7 +132,10 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('The Url does not exist');
         }
 
-        return $this->redirect($data);
+        // return $this->redirect($data);
+        return $this->render('default/redirect.html.twig', array(
+        	'redirecturl' => $data,
+        ));
         
     }
 }

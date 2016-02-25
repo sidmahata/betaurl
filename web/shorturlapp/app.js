@@ -30,6 +30,15 @@
                 templateUrl: getRootUrl().concat('shorturlapp/list.html'),
                 controller : "listController"
             })
+       //     .state('clicks.clicksdata', {
+       //         url: '/clicksdata',
+       //         views: {
+			    //   'clicksdata': {
+			    //     templateUrl: getRootUrl().concat('shorturlapp/clicksdata.html')
+			    //   }
+			    // }
+       //         // templateUrl: getRootUrl().concat('shorturlapp/clicks.html')
+       //     })
             .state('shorten', {
                 url: '/shorten',
                 templateUrl: getRootUrl().concat('shorturlapp/shorten.html'),

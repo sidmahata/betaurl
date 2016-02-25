@@ -1,6 +1,7 @@
 {% extends "::base.html.twig" %}
 
 {% block stylesheets %}
+	
     <link rel="stylesheet" href="{{ asset('css/dashboard_custom.css') }}">
     <link rel="stylesheet" href="{{ asset('css/gn_menu.css') }}">
 {% endblock %}
@@ -54,7 +55,7 @@
                 new gnMenu( document.getElementById( 'gn-menu' ) );
             </script>
         
-        <div id="dashboard-eden" class="container">
+        <div id="dashboard-eden">
                 
                 <div ui-view autoscroll="false"></div>
 
@@ -143,6 +144,7 @@
 {% endblock %}
 
 {% block javascripts %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-sanitize.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
@@ -152,6 +154,10 @@
     <script src="{{ asset('js/modernizr.custom.js') }}"></script>
     <script src="{{ asset('js/classie.js') }}"></script>
     <script src="{{ asset('js/gnmenu.js') }}"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.13.0/amcharts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.13.0/serial.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.13.0/themes/dark.js"></script>
     
     <script src="{{ asset('shorturlapp/app.js') }}"></script>
     <script src="{{ asset('shorturlapp/homeController.js') }}"></script>

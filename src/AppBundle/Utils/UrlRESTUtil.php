@@ -70,6 +70,43 @@ class UrlRESTUtil{
         
     }
     
+    public function getUseridByShortcode($shortcode)
+    {
+        // get id from hashids function decode from shortcode
+        $id = $this->getHashidsShortcodeId($shortcode);
+
+        if( empty($id) ){
+            throw new NotFoundHttpException("Shortcode does not exist");
+        }
+
+        $result = $this->em->getRepository('AppBundle:Url')->find($id[0]);
+
+        if(!$result){
+            throw $this->createNotFoundException('The shortcode does not exist');
+        }
+        
+        return $result->getUserid();
+        
+    }
+    
+    
+    public function getUrlTotal($userid){
+    	
+    	$repository = $this->em
+            ->getRepository('AppBundle:Url');
+            
+        $query = $repository->createQueryBuilder('p')
+            ->where('p.userid = :userid')
+            ->setParameter('userid', $userid)
+            ->getQuery();
+            
+        $result = $query->getResult();
+        $total = count($result);
+        
+        return $total;
+    }
+    
+    
     public function getUrlList($offset, $limit, $sort, $userid){
         
         // return $this->em->getRepository('AppBundle:Url')->findBy(array(), array('id' => $sort), $limit, $offset);
@@ -80,7 +117,7 @@ class UrlRESTUtil{
         // createQueryBuilder automatically selects FROM AppBundle:Url
         // and aliases it to "p"
         $query = $repository->createQueryBuilder('p')
-            ->select(array('p.shortcode', 'p.longurl'))
+            ->select(array('p.shortcode', 'p.longurl', 'p.createdAt'))
             ->where('p.userid = :userid')
             ->setParameter('userid', $userid)
             ->orderBy('p.id', $sort)
@@ -92,6 +129,23 @@ class UrlRESTUtil{
         
         $result = $query->getResult();
         
+        
+      //  foreach ($result as $key=>$value){
+        	
+      //  	// $foo[] = file_get_contents("http://analytics.feedbit.net?module=API&method=Actions.getPageUrl&pageUrl=http://feedbit.net/&period=month&date=last3&idSite=1&token_auth=0afa1bd061671c26e449d06a62838b79&format=json");
+      //  	$url = "http://analytics.feedbit.net?module=API&method=Actions.getPageUrl&pageUrl=http://feedbit.net/".$value['shortcode']."&period=month&date=last3&idSite=1&token_auth=0afa1bd061671c26e449d06a62838b79&format=json";
+      //$ch_rech = curl_init();                    // Initialiser cURL.
+      //curl_setopt($ch_rech, CURLOPT_URL, $url);  // Indiquer quel URL récupérer
+      //curl_setopt($ch_rech, CURLOPT_HEADER, 0);  // Ne pas inclure l'header dans la réponse.
+      //ob_start();                                // Commencer à 'cache' l'output.
+      //curl_exec($ch_rech);                       // Exécuter la requète.
+      //curl_close($ch_rech);                      // Fermer cURL.
+      //$foo[] = ob_get_contents();  
+      //  }
+        
+        // $foo = array('bar' =>'1234');
+        
+        // return array($result, $foo);
         return $result;
     }
 

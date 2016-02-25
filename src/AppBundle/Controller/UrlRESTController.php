@@ -70,7 +70,7 @@ class UrlRESTController extends Controller
     /**
      * @View()
      *
-     * @QueryParam(name="limit", requirements="\d+", default="5", description="limit of the url list.")
+     * @QueryParam(name="limit", requirements="\d+", default="10", description="limit of the url list.")
      * @QueryParam(name="offset", requirements="\d+", default="0", nullable=true, description="offset for the url list.")
      * @QueryParam(name="sort", requirements="(asc|desc)+", allowBlank=false, default="desc", description="Sort direction")
      *
@@ -91,13 +91,39 @@ class UrlRESTController extends Controller
 
         // Using Utils Service app.UrlRESTUtil to get all Url list
         $data = $this->get('app.UrlRESTUtil')->getUrlList($offset, $limit, $sort, $userid);
-
+ 
         if(!$data){
             throw $this->createNotFoundException('No url in list yet.');
         }
 
         return $data;
     }
+    
+    
+    /**
+     *
+     * @View()
+     *
+     */
+    public function getUrltotalAction()
+    {
+    	if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $userid = $this->getUser()->getId();
+        }else{
+            $userid = 0;
+        }
+    	
+        $data = $this->get('app.UrlRESTUtil')->getUrlTotal($userid);
+
+	    if (!$data) {
+	        throw $this->createNotFoundException(
+	            'No record found'
+	        );
+	    }
+
+        return $data;
+    }
+    
 
     /**
      * @ApiDoc(

@@ -1,3 +1,7 @@
+/*dashboard left padding*/
+.dashboard-left-padding{padding-left:85px;}
+/*end of dashboard left padding*/
+
 /*navbar*/
 .navbar{border-radius: 0;}
 /*/navbar*/
@@ -10,13 +14,32 @@
 /*/dashboard-left-sidebar*/
 
 /*dashboard-eden*/
-#dashboard-eden{padding-top:100px;}
+#dashboard-eden{padding-top:60px;}
 /*/dashboard-eden*/
+
+/*daily chart*/
+.dailychart{
+	background: rgb(0, 41, 71) none repeat scroll 0 0;
+	position: fixed;
+	width: 100%;
+	z-index: 4;
+}
+.list-pagination{background: #002F51;}
+.list-table{margin-top: 40vh;}
+/*end of daily chart*/
+
+/*date selection*/
+.date-select-dropdown{min-width:750px;}
+/*end of date selection*/
+
+/*comparison chart*/
+.clear-chart{position: absolute; top: 1vh; right: 1vh;}
+/*end of comparison chart*/
 
 @media screen and (min-width: 422px) { 
 
 /*dashboard-eden*/
-#dashboard-eden{padding-left:60px;}
+#dashboard-eden{padding-left:0;}
 /*/dashboard-eden*/
 
 }
