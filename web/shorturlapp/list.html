@@ -118,6 +118,7 @@
 					  </ul>
 					</div>
 					<button type="button btn-sm" class="btn btn-info btn-sm" ng-show="array2" onclick="location.reload();">Clear Chart</button>
+					<button id="show-chart-btn" type="button btn-sm" class="btn btn-default btn-sm">Toggle Chart <i class="fa fa-long-arrow-up"></i><i class="fa fa-long-arrow-down"></i></button>
 					<!---->
 				</div>
 				<div class="col-sm-6">
@@ -228,17 +229,18 @@
 		        <a href="[[rooturl]][[x.shortcode]]" uib-popover="[[x.longurl]]" popover-trigger="mouseenter" target="_blank">[[rooturl]][[x.shortcode]]</a>
 		        <button class="btn btn-default btn-xs m-t-n5 m-l-5" ng-click="copyToClipboard(x.shortcode); tooltipIsOpen = !tooltipIsOpen" uib-tooltip="&#10003 Copied!" tooltip-is-open="tooltipIsOpen" tooltip-placement="right" tooltip-trigger="outsideClick"><i class="fa fa-copy"></i> COPY</button>
 		        <br>
-		        <small>[[x.createdAt | date:"MMM dd, yyyy"]]</small>
+		        <small>[[x.createdAt.date]]</small>
 		    </div>
 		    <div class="col-sm-3 text-center">
 		        <div class="btn-group btn-group-sm">
-		            <button type="button" class="btn btn-default">
-		                <span ng-repeat="i in getNumber(number) track by $index">
-		                    <span ng-repeat="attr in clicks[$index]" ng-if="attr.label == '/'+ x.shortcode">
-		                        <span>[[ attr.nb_visits ]]</span>
-		                    </span>
-		                </span>
-		            </button>
+		        	<button type="button" class="btn btn-default"><span>[[ x.nb_visits ]] Visit(s)</span></button>
+		            <!--<button type="button" class="btn btn-default">-->
+		            <!--    <span ng-repeat="i in getNumber(number) track by $index">-->
+		            <!--        <span ng-repeat="attr in clicks[$index]" ng-if="attr.label == '/'+ x.shortcode">-->
+		            <!--            <span>[[ attr.nb_visits ]]</span>-->
+		            <!--        </span>-->
+		            <!--    </span>-->
+		            <!--</button>-->
 		            <button type="button" class="btn btn-warning" ng-click="drawdailychart(x.shortcode)"><i class="fa fa-bar-chart"></i></button>
 		            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		                <span class="caret"></span>

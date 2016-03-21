@@ -4,6 +4,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -73,6 +74,8 @@ class UrlRESTController extends Controller
      * @QueryParam(name="limit", requirements="\d+", default="10", description="limit of the url list.")
      * @QueryParam(name="offset", requirements="\d+", default="0", nullable=true, description="offset for the url list.")
      * @QueryParam(name="sort", requirements="(asc|desc)+", allowBlank=false, default="desc", description="Sort direction")
+     * @QueryParam(name="dateFrom", description="date from which analytics wanted")
+     * @QueryParam(name="dateTo", description="date from which analytics wanted")
      *
      * @param ParamFetcher $paramFetcher
      */
@@ -81,6 +84,8 @@ class UrlRESTController extends Controller
         $limit = $paramFetcher->get('limit');
         $offset = $paramFetcher->get('offset');
         $sort = $paramFetcher->get('sort');
+        $dateFrom = $paramFetcher->get('dateFrom');
+        $dateTo = $paramFetcher->get('dateTo');
         
         // check if user is logged in - tehn set userid else userid is itself set to 0
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -90,7 +95,7 @@ class UrlRESTController extends Controller
         }
 
         // Using Utils Service app.UrlRESTUtil to get all Url list
-        $data = $this->get('app.UrlRESTUtil')->getUrlList($offset, $limit, $sort, $userid);
+        $data = $this->get('app.UrlRESTUtil')->getUrlList($offset, $limit, $sort, $userid, $dateFrom, $dateTo);
  
         if(!$data){
             throw $this->createNotFoundException('No url in list yet.');
@@ -182,5 +187,52 @@ class UrlRESTController extends Controller
         }
 
         
+    }
+    
+    
+    /**
+     * @View()
+     *
+     * @QueryParam(name="id", description="youtube video id")
+     * @QueryParam(name="limit", requirements="\d+", default="6", description="limit of the video topicIds related list.")
+     *
+     * @param ParamFetcher $paramFetcher
+     */
+    public function getYoutubeRelatedAction(ParamFetcher $paramFetcher)
+    {
+    	$id = $paramFetcher->get('id');
+    	$limit = $paramFetcher->get('limit');
+    	
+        //query youtube api for related videos using video id
+        $response = file_get_contents('https://www.googleapis.com/youtube/v3/search?part=snippet&fields=items(id,snippet)&relatedToVideoId='.$id.'&type=video&maxResults='.$limit.'&key=AIzaSyBiCpKe3uoVgjmi8PCVOyhMI89MhDcWsQc');
+        $responseDecode = json_decode($response, true);
+        
+        //get related 1st topic id from youtube topicIds Response
+        //if(isset($responseDecode['items'][0]['topicDetails']['topicIds'][0])){
+        	//$topicId = $responseDecode['items'][0]['topicDetails']['topicIds'][0];
+        //}else{
+        	//$topicId = $responseDecode['items'][0]['topicDetails']['relevantTopicIds'][1];
+        //}
+        
+        //get related topic ids videos list
+        //$topicIdResponse = file_get_contents('https://www.googleapis.com/youtube/v3/search?part=snippet&topicId='.$topicId.'&maxResults='.$limit.'&key=AIzaSyBiCpKe3uoVgjmi8PCVOyhMI89MhDcWsQc');
+        //$topicIdResponseDecode = json_decode($topicIdResponse, true);
+        
+        $result = [];
+        foreach($responseDecode['items'] as $i=>$value) {
+		    //array_push($result, 
+        	//'title' => $topicIdResponseDecode['items'][$i]['snippet']['title']
+        	//);
+        	$resultItem = new \stdClass();
+        	$resultItem->videoId = $responseDecode['items'][$i]['id']['videoId'];
+        	$resultItem->title = $responseDecode['items'][$i]['snippet']['title'];
+        	$resultItem->description = $responseDecode['items'][$i]['snippet']['description'];
+        	$resultItem->thumbnails = $responseDecode['items'][$i]['snippet']['thumbnails']['medium']['url'];
+        	$resultItem->channelTitle = $responseDecode['items'][$i]['snippet']['channelTitle'];
+
+        	array_push($result, $resultItem);
+		}
+        
+        return new JsonResponse($result);
     }
 }

@@ -24,8 +24,10 @@
 	width: 100%;
 	z-index: 4;
 }
+#chartdiv{display:none;}
 .list-pagination{background: #002F51;}
-.list-table{margin-top: 40vh;}
+.list-table{margin-top: 10vh;}
+.list-table-with-chart{margin-top: 40vh;}
 /*end of daily chart*/
 
 /*date selection*/
@@ -36,10 +38,11 @@
 .clear-chart{position: absolute; top: 1vh; right: 1vh;}
 /*end of comparison chart*/
 
-@media screen and (min-width: 422px) { 
+@media screen and (max-width: 422px) { 
 
 /*dashboard-eden*/
 #dashboard-eden{padding-left:0;}
+.dashboard-left-padding{padding-left:0;}
 /*/dashboard-eden*/
 
 }

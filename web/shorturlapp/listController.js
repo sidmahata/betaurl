@@ -12,31 +12,78 @@
 		// loading
 		$scope.loading=0;
 		
+		// date choose function
+		$scope.today = function() {
+		    $scope.dtFrom = new Date();
+	  	};
+	    $scope.today();
+	    
+	    $scope.toggleMin = function() {
+		    $scope.minDate = $scope.minDate ? null : new Date();
+	  	};
+	  	
+	  	
+	  	var currentDate = new Date();
+		var firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+		var lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+	  	
+	  	$scope.dtFrom = firstDay;
+	  	console.log(($scope.dtFrom).toISOString().slice(0,10));
+	  	$scope.dtTo = lastDay;
+		console.log($scope.dtTo);
+	  	
+	  	$scope.minDate = new Date("2015-03-25");
+	  	$scope.maxDate = lastDay;
+	  	
+	  	$scope.open1 = function() {
+		    $scope.popup1.opened = true;
+	  	};
+	  	$scope.popup1 = {
+		    opened: false
+	  	};
+	  	
+	  	$scope.open2 = function() {
+		    $scope.popup2.opened = true;
+	  	};
+	  	$scope.popup2 = {
+		    opened: false
+	  	};
+	  	
+	  	$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+  		$scope.format = $scope.formats[0];
+	  	$scope.altInputFormats = $scope.format;
+	  	
+	  	$scope.dateOptions = {
+		    formatYear: 'yy',
+		    startingDay: 1
+	  	};
+		// end of date choose function
+		
+		
+		// show chart using button
+		$("#show-chart-btn").click(function(){
+		    $("#chartdiv").toggle('fast');
+		    // $(".list-table").animate({'margin-top': "10vh"});
+		    $(".list-table").toggleClass("list-table-with-chart");
+		}); 
+		
         var onUserLoadComplete = function(response){
         	$scope.loading=0;
 		  	console.log('loading stop: ' + $scope.loading);
             $scope.shorturlList = response.data;
             $scope.error = null;
-            $scope.clicks = [];
-            // $scope.shortcodeforinitialgraph=[];
-            angular.forEach($scope.shorturlList, function(item){
-            	$scope.loading++;
-              	$http.get( getRootUrl()+"app_dev.php/analytics?shortcode="+item.shortcode+"&period=range&date="+($scope.dtFrom).toISOString().slice(0,10)+","+($scope.dtTo).toISOString().slice(0,10) )
-			    .then(function(clickdata) {
-			    	$scope.loading--;
+       //     $scope.clicks = [];
+       //     angular.forEach($scope.shorturlList, function(item){
+       //     	$scope.loading++;
+       //       	$http.get( getRootUrl()+"app_dev.php/analytics?shortcode="+item.shortcode+"&period=range&date="+($scope.dtFrom).toISOString().slice(0,10)+","+($scope.dtTo).toISOString().slice(0,10) )
+			    // .then(function(clickdata) {
+			    // 	$scope.loading--;
 			    	
-			    	// $scope.shortcodeforinitialgraph.push(item.shortcode);
-			    	// console.log($scope.shortcodeforinitialgraph[0]);
-			        $scope.clicks.push(clickdata.data);
-			        $scope.number++;
-			         //angular.forEach($scope.clicks[0], function(data){
-			         //		console.log(data.url);
-			         //});
-			         //console.log($scope.clicks);
-			    });
-            });
-            // console.log($scope.shortcodeforinitialgraph[0]);
-            // $scope.drawdailychart($scope.shortcodeforinitialgraph[0]);
+			    //     $scope.clicks.push(clickdata.data);
+			    //     $scope.number++;
+			    //      console.log($scope.clicks);
+			    // });
+       //     });
             
         };
         
@@ -47,18 +94,18 @@
         };
 		
 		// get url list
-        $http.get(getRootUrl().concat('app_dev.php/api/urls'))
+        $http.get(getRootUrl().concat("app_dev.php/api/urls?dateFrom="+($scope.dtFrom).toISOString().slice(0,10)+"&dateTo="+($scope.dtTo).toISOString().slice(0,10)))
                 .then(onUserLoadComplete, onError);
         
         // get url list function 
         $scope.list= function(){
-        	$http.get(getRootUrl().concat('app_dev.php/api/urls'))
+        	$http.get(getRootUrl().concat("app_dev.php/api/urls?dateFrom="+($scope.dtFrom).toISOString().slice(0,10)+"&dateTo="+($scope.dtTo).toISOString().slice(0,10)))
                 .then(onUserLoadComplete, onError);	
         };
         
-        $scope.message1 = "hello world , List is working";
+        // $scope.message1 = "hello world , List is working";
         $scope.rooturl = getRootUrl();
-        $scope.analyticsmonth = "FEB";
+        // $scope.analyticsmonth = "FEB";
         
         // pagination
 		
@@ -71,7 +118,7 @@
 		  	$scope.loading++;
 		  	console.log('loading start: ' + $scope.loading);
 		    console.log('Page changed to: ' + $scope.currentPage);
-		    $http.get(getRootUrl().concat('app_dev.php/api/urls?offset=').concat($scope.currentPage*$scope.itemsPerPage-$scope.itemsPerPage))
+		    $http.get(getRootUrl().concat('app_dev.php/api/urls?offset=').concat($scope.currentPage*$scope.itemsPerPage-$scope.itemsPerPage).concat("&dateFrom="+($scope.dtFrom).toISOString().slice(0,10)+"&dateTo="+($scope.dtTo).toISOString().slice(0,10)))
                 .then(onUserLoadComplete, onError);
 		  };
 		  
@@ -86,15 +133,12 @@
 		  $scope.itemsPerPage = 10;
         // end of pagination
         
-        // integer array for ng-repeat
-        $scope.number = 0;
-		$scope.getNumber = function(num) {
-		    return new Array(num);   
-		}
-		
+       
 
 		// analytics daily line chart data
 		$scope.drawdailychart = function(shortcode){
+			$("#chartdiv").show('fast');
+			$(".list-table").addClass("list-table-with-chart");
 			console.log(shortcode);
 			$scope.loading++;
 			$http.get( getRootUrl()+"app_dev.php/analytics?shortcode="+shortcode+"&period=day&date="+($scope.dtFrom).toISOString().slice(0,10)+","+($scope.dtTo).toISOString().slice(0,10) )
@@ -115,14 +159,14 @@
 				        
 			        });
 			        
-			        AmCharts.makeChart("chartdiv", {
+			        var chart = AmCharts.makeChart("chartdiv", {
 		                type: "serial",
 		                theme: "dark",
 		                dataProvider: $scope.chartdata,
 		                categoryField: "date",
 		                dataDateFormat: "YYYY-MM-DD",
 		                startDuration: 1,
-		                startEffect: "easeOutSine",
+		                // startEffect: "bounce",
 		                // rotate: true,
 		                
 		                chartCursor: {
@@ -146,10 +190,11 @@
 		                    integersOnly: true
 		                }],
 		                graphs: [{
-		                	bullet: "round",
+		                	// bullet: "round",
+		                	fillAlphas: 1,
 		                    title: getRootUrl()+shortcode,
 		                    valueField: "nb_visits",
-		                    type: "smoothedLine",
+		                    type: "column",
 		                    // fillAlphas:1,
 		                    // fillColors: "#ff851b",
 		                    lineColor: rainbow(10, 3),
@@ -165,10 +210,19 @@
 		                creditsPosition:"top-right"
 		
 		            });
-			        
+		            chart.addListener("clickGraphItem", chartDataClick);
+		            
 			    });
 			
 		};
+		
+		function chartDataClick(event)
+		{
+		    console.log("hello");
+		    // alert(Object.keys(event.item) + ": " + event.item.values.value);
+		    console.log(event.item.dataContext.date);
+		}
+		
 		
 		
 		// analytics daily bar chart data
@@ -191,7 +245,7 @@
 				// charts graph data settings
 				var graphDataObj = {};
 			    graphDataObj["bullet"] = "round";
-			    graphDataObj["type"]= "smoothedLine";
+			    // graphDataObj["type"]= "smoothedLine";
 			    graphDataObj["lineColor"]= rainbow(10, i);
 			    graphDataObj["title"] = getRootUrl().concat(shortcode);
 			    graphDataObj["valueField"]= getRootUrl().concat(shortcode);
@@ -336,65 +390,7 @@
 		};
 		
 		
-		// date choose function
-		$scope.today = function() {
-		    $scope.dtFrom = new Date();
-	  	};
-	    $scope.today();
-	    
-	    $scope.toggleMin = function() {
-		    $scope.minDate = $scope.minDate ? null : new Date();
-	  	};
-	  	
-	  	// 
-	  	var currentDate = new Date();
-		var firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 2);
-		var lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
-	  	
-	  	$scope.dtFrom = firstDay;
-	  	$scope.dtTo = lastDay;
-	  	
-	  	// $scope.dtFromCleaned =null;
-	  	// if(!$scope.dtFromCleaned){
-	  	// 	$scope.dtFromCleaned = new Date(currentDate.getFullYear(), currentDate.getMonth(), 2);
-	  	// }else{
-	  	// 	$scope.dtFromCleaned = ($scope.dtFrom).toISOString().slice(0,10);
-	  	// }
-	  	
-	  	// $scope.dtToCleaned =null;
-	  	// if(!$scope.dtToCleaned){
-	  	// 	$scope.dtToCleaned = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
-	  	// }else{
-	  	// 	$scope.dtToCleaned = ($scope.dtTo).toISOString().slice(0,10);
-	  	// }
-	  	
-	  	
-	  	$scope.minDate = new Date("2015-03-25");
-	  	$scope.maxDate = lastDay;
-	  	
-	  	$scope.open1 = function() {
-		    $scope.popup1.opened = true;
-	  	};
-	  	$scope.popup1 = {
-		    opened: false
-	  	};
-	  	
-	  	$scope.open2 = function() {
-		    $scope.popup2.opened = true;
-	  	};
-	  	$scope.popup2 = {
-		    opened: false
-	  	};
-	  	
-	  	$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-  		$scope.format = $scope.formats[0];
-	  	$scope.altInputFormats = $scope.format;
-	  	
-	  	$scope.dateOptions = {
-		    formatYear: 'yy',
-		    startingDay: 1
-	  	};
-		// end of date choose function
+		
 
 		// rainbow hex code generator function
 		function rainbow(numOfSteps, step) {

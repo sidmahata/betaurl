@@ -115,9 +115,46 @@
     </div>
 </div>
 
+<div class="row">
+	<div class="container">
+		<div class="alert alert-danger" role="alert" ng-show="error">
+		    <p>[[error.message]]</p>
+		</div>
 
-
-<div class="alert alert-danger" role="alert" ng-show="error">
-    <p>[[error.message]]</p>
+		<div>
+			<!-- <button type="button" class="btn btn-default" ng-click="youtubeRelatedIsCollapsed = !youtubeRelatedIsCollapsed">Toggle collapse</button> -->
+			<div uib-collapse="youtubeRelatedIsCollapsed">
+				<div class="lead text-center">More Related Videos</div>
+				<hr>
+				<div class="row">
+					<div ng-repeat="youtubeRelatedItem in youtubeRelated" class="col-sm-4">
+						<div class="thumbnail m-b-20">
+							<div class="row">
+								<div class="col-sm-6">
+									<img class="img-responsive" src="[[youtubeRelatedItem.thumbnails]]" alt="[[youtubeRelatedItem.title]]">
+								</div>
+								<div class="col-sm-6 m-l-n5">
+									<div>
+										<a href="https://www.youtube.com/watch?v=[[youtubeRelatedItem.videoId]]" target="_blank">[[youtubeRelatedItem.title]]</a>
+									</div>
+								</div>
+							</div>
+							<hr class="m-b-10 m-t-10">
+							<div class="row">
+								<div class="col-xs-8">
+									<span>CHANNEL:&nbsp;</span><span class="lead-plus0">[[youtubeRelatedItem.channelTitle]]</span>
+								</div>
+								<div class="col-xs-4">
+									<button class="btn btn-default btn-xs pull-right">SHORT &amp; SHARE</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+
 

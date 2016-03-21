@@ -93,7 +93,7 @@ class DefaultController extends Controller
         
         // check if session userid matches with shortcode user id, if matches show analytics data
         if($userid == $shortcodeUserid){
-        	$url = $piwik_domain."/?module=API&method=Actions.getPageUrl&pageUrl=http://feedbit.net/".$shortcode."&period=".$period."&date=".$date."&idSite=1&token_auth=".$piwik_token_auth."&format=json";
+        	$url = $piwik_domain."/?module=API&method=Actions.getPageUrl&pageUrl="."http://" . $_SERVER['SERVER_NAME']."/".$shortcode."&period=".$period."&date=".$date."&idSite=1&token_auth=".$piwik_token_auth."&format=json";
     	
 	    	//  Initiate curl
 			$ch = curl_init();
@@ -116,6 +116,56 @@ class DefaultController extends Controller
         	return new JsonResponse('You are not authorized to view this data.');
         }
      	
+     }
+     
+     
+     /**
+     * @Route("/analytics/country", name="analytics countrywise")
+     *
+     * @QueryParam(name="shortcode", default="3r3gr", description="shortcode of which analytics is required")
+     * @QueryParam(name="period", default="month", description="period of analytics data required")
+     * @QueryParam(name="date", default="today", description="date from which analytics data required")
+     *
+     * @param ParamFetcher $paramFetcher
+     *
+     */
+     public function analyticsMonthAction(ParamFetcher $paramFetcher)
+     {
+     	$shortcode = $paramFetcher->get('shortcode');
+     	$period = $paramFetcher->get('period');
+     	$date = $paramFetcher->get('date');
+     	$piwik_token_auth = $this->container->getParameter('piwik_token_auth');
+     	$piwik_domain = $this->container->getParameter('piwik_domain');
+     	
+     	
+     	$response = file_get_contents($piwik_domain."/?module=API&method=UserCountry.getCountry&segment=pageUrl=="."http://" . $_SERVER['SERVER_NAME']."/".$shortcode."&period=".$period."&date=".$date."&idSite=1&token_auth=".$piwik_token_auth."&format=json");
+        $responseDecode = json_decode($response, true);
+
+        return new JsonResponse( $responseDecode );
+     }
+     
+     /**
+     * @Route("/analytics/referrer", name="analytics referrer data")
+     *
+     * @QueryParam(name="shortcode", default="3r3gr", description="shortcode of which analytics is required")
+     * @QueryParam(name="period", default="month", description="period of analytics data required")
+     * @QueryParam(name="date", default="today", description="date from which analytics data required")
+     *
+     * @param ParamFetcher $paramFetcher
+     *
+     */
+     public function analyticsReferrerAction(ParamFetcher $paramFetcher)
+     {
+     	$shortcode = $paramFetcher->get('shortcode');
+     	$period = $paramFetcher->get('period');
+     	$date = $paramFetcher->get('date');
+     	$piwik_token_auth = $this->container->getParameter('piwik_token_auth');
+     	$piwik_domain = $this->container->getParameter('piwik_domain');
+     	
+     	$response = file_get_contents($piwik_domain."/?module=API&method=Referrers.getWebsites&segment=pageUrl=="."http://" . $_SERVER['SERVER_NAME']."/".$shortcode."&period=".$period."&date=".$date."&idSite=1&token_auth=".$piwik_token_auth."&format=json");
+        $responseDecode = json_decode($response, true);
+
+        return new JsonResponse( $responseDecode );
      }
     
     

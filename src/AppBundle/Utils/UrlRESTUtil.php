@@ -3,6 +3,8 @@
 namespace AppBundle\Utils;
 
 use Hashids\Hashids;
+
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class UrlRESTUtil{
     
@@ -107,7 +109,8 @@ class UrlRESTUtil{
     }
     
     
-    public function getUrlList($offset, $limit, $sort, $userid){
+    public function getUrlList($offset, $limit, $sort, $userid, $dateFrom, $dateTo){
+    	
         
         // return $this->em->getRepository('AppBundle:Url')->findBy(array(), array('id' => $sort), $limit, $offset);
         
@@ -127,26 +130,58 @@ class UrlRESTUtil{
             // ->useQueryCache(true, 160)
             // ->useResultCache(true, 160);
         
-        $result = $query->getResult();
+        $queryResult = $query->getResult();
         
+
         
-      //  foreach ($result as $key=>$value){
+        $urls = [];
+        foreach($queryResult as $key=>$value){
+        	$urls[$key] = urlencode('method=Actions.getPageUrl&pageUrl='.'http://' . $_SERVER['SERVER_NAME'].'/'.$value['shortcode'].'&period=range&date='.$dateFrom.','.$dateTo.'&idSite=1');
+        }
+        
+        $urlsCollection="";
+        foreach ($urls as $key=>$urlsData) {
+		    $urlsCollection .= '&urls['.$key.']='.$urlsData;
+		}
+        
+        // $response = file_get_contents(
+        // 	'http://analytics.feedbit.net/?module=API&method=API.getBulkRequest&urls[0]=method%3dActions.getPageUrl%26pageUrl%3dhttp://feedbit.net/Zj7vr%26period%3drange%26date%3d2016-02-01%2c2016-03-15%26idSite%3d1&urls[1]=method%3dActions.getPageUrl%26pageUrl%3dhttp://feedbit.net/3r3gr%26period%3drange%26date%3d2016-02-01%2c2016-03-15%26idSite%3d1&token_auth=0afa1bd061671c26e449d06a62838b79&format=json'
+        // 	);
         	
-      //  	// $foo[] = file_get_contents("http://analytics.feedbit.net?module=API&method=Actions.getPageUrl&pageUrl=http://feedbit.net/&period=month&date=last3&idSite=1&token_auth=0afa1bd061671c26e449d06a62838b79&format=json");
-      //  	$url = "http://analytics.feedbit.net?module=API&method=Actions.getPageUrl&pageUrl=http://feedbit.net/".$value['shortcode']."&period=month&date=last3&idSite=1&token_auth=0afa1bd061671c26e449d06a62838b79&format=json";
-      //$ch_rech = curl_init();                    // Initialiser cURL.
-      //curl_setopt($ch_rech, CURLOPT_URL, $url);  // Indiquer quel URL récupérer
-      //curl_setopt($ch_rech, CURLOPT_HEADER, 0);  // Ne pas inclure l'header dans la réponse.
-      //ob_start();                                // Commencer à 'cache' l'output.
-      //curl_exec($ch_rech);                       // Exécuter la requète.
-      //curl_close($ch_rech);                      // Fermer cURL.
-      //$foo[] = ob_get_contents();  
-      //  }
+        	$response = file_get_contents(
+        	'http://analytics.feedbit.net/?module=API&method=API.getBulkRequest&token_auth=0afa1bd061671c26e449d06a62838b79&format=json'.$urlsCollection
+        	);
+        $responseDecode = json_decode($response, true);
         
-        // $foo = array('bar' =>'1234');
+        $visits = [];
+        foreach($responseDecode as $key=>$value) {
+        	$visitsItem = new \stdClass();
+        	
+        	if(isset($responseDecode[$key][0])){
+        		$visitsItem = $responseDecode[$key][0]['nb_visits'];
+        	}else{
+        		$visitsItem = 0;
+        	}
+        	
+        	array_push($visits, $visitsItem);
+		}
+		// var_dump($responseDecode);
+        // return $queryResult;
+        // return new JsonResponse($visits);
         
-        // return array($result, $foo);
-        return $result;
+        $result = [];
+        foreach($queryResult as $key=>$value){
+        	$resultItem = new \stdClass();
+        	
+        	$resultItem->shortcode = $value['shortcode'];
+        	$resultItem->longurl = $value['longurl'];
+        	$resultItem->nb_visits = $visits[$key];
+        	$resultItem->createdAt = $value['createdAt'];
+        	
+        	array_push($result, $resultItem);
+        }
+        
+        return new JsonResponse($result);
     }
 
     public function get64BitHash($str)
