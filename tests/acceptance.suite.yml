@@ -8,8 +8,8 @@ class_name: AcceptanceTester
 modules:
     enabled:
         - REST:
-            url: http://108.61.207.200/app_dev.php
+            url: http://feedbit.net/app_dev.php
             depends: PhpBrowser
         - PhpBrowser:
-            url: http://108.61.207.200/app_dev.php
+            url: http://feedbit.net/app_dev.php
         - \Helper\Acceptance

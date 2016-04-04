@@ -224,14 +224,14 @@
 		    </div>
 		</div>
 		<div class="row" ng-repeat="x in shorturlList track by $index">
-		    <div class="col-sm-7">
-		        <p class="lead-plus0 m-b-5">Buy Clothes</p>
+		    <div class="col-sm-6">
+		        <!--<p class="lead-plus0 m-b-5">Buy Clothes</p>-->
 		        <a href="[[rooturl]][[x.shortcode]]" uib-popover="[[x.longurl]]" popover-trigger="mouseenter" target="_blank">[[rooturl]][[x.shortcode]]</a>
 		        <button class="btn btn-default btn-xs m-t-n5 m-l-5" ng-click="copyToClipboard(x.shortcode); tooltipIsOpen = !tooltipIsOpen" uib-tooltip="&#10003 Copied!" tooltip-is-open="tooltipIsOpen" tooltip-placement="right" tooltip-trigger="outsideClick"><i class="fa fa-copy"></i> COPY</button>
 		        <br>
 		        <small>[[x.createdAt.date]]</small>
 		    </div>
-		    <div class="col-sm-3 text-center">
+		    <div class="col-sm-4 text-center">
 		        <div class="btn-group btn-group-sm">
 		        	<button type="button" class="btn btn-default"><span>[[ x.nb_visits ]] Visit(s)</span></button>
 		            <!--<button type="button" class="btn btn-default">-->
